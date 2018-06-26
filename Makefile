@@ -2,7 +2,9 @@
 PWD = $(shell pwd)
 ifeq ($(OS),"win")
 	GOPATH_DIR = "C:\projects\pyskycoin\gopath"
+	echo "windows"
 else
+	echo "linux"
 	GOPATH_DIR = $(PWD)/gopath
 endif
 SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin

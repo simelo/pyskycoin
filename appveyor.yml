@@ -6,7 +6,6 @@ environment:
         CYG_MIRROR: http://cygwin.mirror.constant.com
         CYG_CACHE: C:\cygwin64\var\cache\setup
         CYG_BASH: C:\cygwin64\bin\bash
-        OS: win # Eliminar si funciona el Makefile
 
     matrix:
         - PYTHON: "C:\\Python27"
@@ -38,4 +37,4 @@ install:
 build: off
 
 test_script:
-    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'
+    - '%CYG_BASH% -lc "export OS='win' && cd $APPVEYOR_BUILD_FOLDER && make test"'

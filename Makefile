@@ -2,8 +2,6 @@
 PWD = $(shell pwd)
 ifeq ($(OS),"win")
 	GOPATH_DIR = "C:\projects\pyskycoin\gopath"
-	echo "windows"
-	echo $(GOPATH)
 else
 	GOPATH_DIR = $(PWD)/gopath
 endif

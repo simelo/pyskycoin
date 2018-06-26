@@ -1,5 +1,8 @@
 # Compilation output
 PWD = $(shell pwd)
+ifeq ($(OS),"win")
+	GOPATH = "c:\gopath"
+endif
 GOPATH_DIR = $(PWD)/gopath
 SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
 SKYBUILD_DIR = $(SKYCOIN_DIR)/build

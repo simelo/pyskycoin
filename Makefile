@@ -1,6 +1,6 @@
 # Compilation output
 PWD = $(shell pwd)
-ifeq ($(OS),Windows_NT)
+ifeq ($(OS),"win")
 	GOPATH_DIR = "C:\projects\pyskycoin\gopath"
 	echo "windows"
 	echo $(GOPATH)

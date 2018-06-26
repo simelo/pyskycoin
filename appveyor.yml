@@ -37,4 +37,4 @@ install:
 build: off
 
 test_script:
-    - '%CYG_BASH% -lc "export OS='win' && cd $APPVEYOR_BUILD_FOLDER && make test"'
+    - '%CYG_BASH% -lc "export OS=win && cd $APPVEYOR_BUILD_FOLDER && make test"'

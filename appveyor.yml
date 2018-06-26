@@ -6,8 +6,7 @@ environment:
         CYG_MIRROR: http://cygwin.mirror.constant.com
         CYG_CACHE: C:\cygwin64\var\cache\setup
         CYG_BASH: C:\cygwin64\bin\bash
-    cache:
-        - '%CYG_CACHE%'
+
     matrix:
         - PYTHON: "C:\\Python27"
         - PYTHON: "C:\\Python33"
@@ -20,6 +19,8 @@ environment:
           DISTUTILS_USE_SDK: "1"
         - PYTHON: "C:\\Python35-x64"
         - PYTHON: "C:\\Python36-x64"
+cache:
+    - '%CYG_CACHE%'
 
 install:
     - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages autoconf,autogen,automake,cygwin-devel,git,gcc-core,gcc-g++,libncurses-devel,libprotobuf-devel,make,openssh,openssl-devel,perl,perl_pods,pkg-config,tmux,zlib-devel'

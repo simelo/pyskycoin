@@ -1,11 +1,11 @@
 # Compilation output
 PWD = $(shell pwd)
-ifeq ($(OS),"win")
+ifeq ($(OS),Windows_NT)
 	GOPATH_DIR = "C:\projects\pyskycoin\gopath"
-	echo "windows"
+	@echo windows
 else
-	echo "linux"
 	GOPATH_DIR = $(PWD)/gopath
+	@echo linux
 endif
 SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
 SKYBUILD_DIR = $(SKYCOIN_DIR)/build

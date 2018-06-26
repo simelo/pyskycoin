@@ -1,7 +1,7 @@
 # Compilation output
 PWD = $(shell pwd)
 ifeq ($(OS),Windows_NT)
-	GOPATH_DIR = "C:\projects\pyskycoin\gopath"
+	GOPATH_DIR = "C:/projects/pyskycoin/gopath"
 else
 	GOPATH_DIR = $(PWD)/gopath
 endif

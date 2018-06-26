@@ -1,5 +1,6 @@
-environment:
+image: Visual Studio 2017
 
+environment:
     matrix:
         - PYTHON: "C:\\Python27"
         - PYTHON: "C:\\Python33"
@@ -21,6 +22,7 @@ install:
     - cd C:\projects\pyskycoin
     - "%PYTHON%\\python.exe -m pip install wheel tox"
     - cinst make
+    - cinst swig
 
 build: off
 

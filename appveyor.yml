@@ -16,6 +16,9 @@ environment:
 install:
     - git submodule init
     - git submodule update
+    - cd gopath/src/github.com/skycoin/skycoin
+    - git checkout origin/stdevEclipse_t1568_swig_files
+    - cd C:\projects\pyskycoin
     - "%PYTHON%\\python.exe -m pip install wheel tox"
     - cinst make
 

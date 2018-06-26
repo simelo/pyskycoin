@@ -1,10 +1,11 @@
 # Compilation output
 PWD = $(shell pwd)
-ifeq ($(OS),"win")
-	GOPATH = "c:\gopath"
-endif
 GOPATH_DIR = $(PWD)/gopath
-SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
+ifeq ($(OS),Windows_NT)
+	GOPATH = "c:\gopath"
+else
+	GOPATH="$(GOPATH_DIR)"
+endifSKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
 SKYBUILD_DIR = $(SKYCOIN_DIR)/build
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
 LIBC_DIR = $(SKYCOIN_DIR)/lib/cgo
@@ -22,7 +23,7 @@ configure:
 	mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR)
 
 $(BUILDLIBC_DIR)/libskycoin.a: $(LIB_FILES) $(SRC_FILES)
-	cd $(SKYCOIN_DIR) && GOPATH="$(GOPATH_DIR)" make build-libc-static
+	cd $(SKYCOIN_DIR) &&  make build-libc-static
 	grep -v _Complex $(INCLUDE_DIR)/libskycoin.h > swig/include/libskycoin.h
 
 ## Build libskycoin C client library

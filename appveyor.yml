@@ -1,6 +1,13 @@
 image: Visual Studio 2017
 
 environment:
+    global:
+        CYG_ROOT: C:\cygwin64
+        CYG_MIRROR: http://cygwin.mirror.constant.com
+        CYG_CACHE: C:\cygwin64\var\cache\setup
+        CYG_BASH: C:\cygwin64\bin\bash
+    cache:
+        - '%CYG_CACHE%'
     matrix:
         - PYTHON: "C:\\Python27"
         - PYTHON: "C:\\Python33"
@@ -15,6 +22,8 @@ environment:
         - PYTHON: "C:\\Python36-x64"
 
 install:
+    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages autoconf,autogen,automake,cygwin-devel,git,gcc-core,gcc-g++,libncurses-devel,libprotobuf-devel,make,openssh,openssl-devel,perl,perl_pods,pkg-config,tmux,zlib-devel'
+    - '%CYG_ROOT%\bin\cygcheck -dc cygwin'
     - git submodule init
     - git submodule update
     - cd gopath/src/github.com/skycoin/skycoin
@@ -27,4 +36,4 @@ install:
 build: off
 
 test_script:
-    - "make test"
+    - '%CYG_BASH% -lc "make test"'

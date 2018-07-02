@@ -12,6 +12,26 @@ LIBSWIG_DIR = $(SKYCOIN_DIR)/lib/swig
 BUILD_DIR = build
 BIN_DIR = $(SKYCOIN_DIR)/bin
 INCLUDE_DIR = $(SKYCOIN_DIR)/include
+install_name_id_cmd = ls
+
+
+# Platform specific checks
+OSNAME = $(TRAVIS_OS_NAME)
+
+ifeq ($(shell uname -s),Linux)
+  LDLIBS=$(LIBC_LIBS) -lpthread
+  LDPATH=$(shell printenv LD_LIBRARY_PATH)
+  LDPATHVAR=LD_LIBRARY_PATH
+  LDFLAGS=$(LIBC_FLAGS) $(STDC_FLAG) 
+ifndef OSNAME
+  OSNAME = linux
+endif
+else ifeq ($(shell uname -s),Darwin)
+ifndef OSNAME
+  OSNAME = osx
+endif
+	install_name_id_cmd = install_name_tool -id "@rpath/libskycoin.a" $(BUILDLIBC_DIR)/libskycoin.a
+endif
 
 LIB_FILES = $(shell find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
@@ -28,7 +48,7 @@ $(BUILDLIBC_DIR)/libskycoin.a: $(LIB_FILES) $(SRC_FILES)
 	grep -v _Complex $(INCLUDE_DIR)/libskycoin.h > swig/include/libskycoin.h
 
 ## Build libskycoin C client library
-build-libc: configure $(BUILDLIBC_DIR)/libskycoin.a
+build-libc: configure $(BUILDLIBC_DIR)/libskycoin.a mac_install_name_tool
 
 build-swig:
 	#Generate structs.i from skytypes.gen.h
@@ -43,6 +63,9 @@ build-swig:
 		fi \
 	}
 	swig -python -Iswig/include -I$(INCLUDE_DIR) -outdir . -o swig/pyskycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
+	
+mac_install_name_tool:
+	$(install_name_id_cmd)
 	
 develop:
 	python setup.py develop

@@ -39,7 +39,7 @@ install:
 #- ps: (new-object System.Net.WebClient).Downloadfile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20Installer/tdm64-gcc-5.1.0-2.exe?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftdm-gcc%2Ffiles%2FTDM-GCC%2520Installer%2Ftdm64-gcc-5.1.0-2.exe%2Fdownload&ts=1530907506", "$env:APPVEYOR_BUILD_FOLDER\\tdm-gcc.exe")
 #    - ps: .\\tdm-gcc.exe
 
-#build: off
+build: off
 
 test_script:
     - make test

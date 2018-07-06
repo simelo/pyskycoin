@@ -76,6 +76,6 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - C:\MinGW\bin\mingw32-make.exe test
+    - make test
     #- '%CYG_BASH% -lc "export OS=Windows_NT"'
     #- '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

@@ -32,10 +32,17 @@ ifndef OSNAME
 endif
 	install_name_id_cmd = install_name_tool -id "@rpath/libskycoin.a" $(BUILDLIBC_DIR)/libskycoin.a
 endif
+FULL_PATH_LIB = $(PWD)/$(BUILDLIBC_DIR)
 
 LIB_FILES = $(shell find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
 SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
+
+ifeq ($(shell uname -s),Linux)
+	TEMP_DIR = tmp
+else ifeq ($(shell uname -s),Darwin)
+	TEMP_DIR = $TMPDIR
+endif 
 
 configure:
 	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include
@@ -43,6 +50,8 @@ configure:
 
 $(BUILDLIBC_DIR)/libskycoin.a: $(LIB_FILES) $(SRC_FILES)
 	cd $(SKYCOIN_DIR) && GOPATH="$(GOPATH_DIR)" make build-libc-static
+	echo "After building libskycoin"
+	ls $(BUILDLIBC_DIR)
 	rm -Rf swig/include/libskycoin.h
 	mkdir -p swig/include
 	grep -v _Complex $(INCLUDE_DIR)/libskycoin.h > swig/include/libskycoin.h

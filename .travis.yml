@@ -24,10 +24,10 @@ install:
     - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then sudo apt-get update && sudo apt-get install swig; fi
     - eval "$(gimme 1.10)"
 
-script: make test
-
 after_script:
     - cat /Users/travis/build/simelo/pyskycoin/.tox/py27/log/py27-*.log
+
+script: make test
 
 notifications:
   email: false

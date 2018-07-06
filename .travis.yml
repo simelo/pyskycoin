@@ -12,7 +12,6 @@ matrix:
       - os: osx
         languague: generic
         env:
-            - PYTHON=2.7
             - TOXENV=py27
             - TOXENV=py34
 

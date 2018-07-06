@@ -8,8 +8,14 @@ include Makefile
 include gopath/src/github.com/skycoin/skycoin/build/libskycoin/libskycoin.a
 include skycoin.py
 
+recursive-include docker *
 recursive-include swig/include *
 recursive-include gopath/src/github.com/skycoin/skycoin/include *
 
 recursive-exclude . *.orig
+
+exclude .github
+exclude .travis
+recursive-exclude .github *
+recursive-exclude .travis *
 

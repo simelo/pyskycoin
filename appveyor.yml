@@ -35,7 +35,7 @@ install:
     - "%PYTHON%\\python.exe -m pip install wheel tox"
       #- choco install make --source=cygwin
     - cinst swig
-    - curl -fsS -o tdm-gcc.exe https://superb-sea2.dl.sourceforge.net/project/tdm-gcc/TDM-GCC%20Installer/tdm64-gcc-5.1.0-2.exe
+    - curl -fsS -o tdm-gcc.exe http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%20Installer/tdm64-gcc-5.1.0-2.exe/download
     - ps: .\tdm-gcc.exe
 
 #build: off

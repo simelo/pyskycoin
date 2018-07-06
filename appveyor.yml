@@ -35,13 +35,52 @@ install:
     - "%PYTHON%\\python.exe -m pip install wheel tox"
       #- choco install make --source=cygwin
     - cinst swig
-    - cinst mingw
+    - ps: >-
+    if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
+
+        echo "TDM-GCC64 not found on build/, downloading..."
+
+        md -Force build | Out-Null
+        md -Force C:/tools/tdm64 | Out-Null
+
+        echo "Downloading tdm64-core..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-core.tar.lzma", "$pwd/build/tdm64-core.tar.lzma")
+
+        echo "Downloading tdm64-binutils..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-2.25-tdm64-1.tar.lzma", "$pwd/build/tdm64-binutils.tar.lzma")
+
+        echo "Downloading tdm64-mingw64runtime..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%205%20series/mingw64runtime-v4-git20150618-gcc5-tdm64-1.tar.lzma", "$pwd/build/tdm64-mingw64runtime.tar.lzma")
+
+        echo "Downloading tdm64-cpp..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-c%2B%2B.tar.lzma", "$pwd/build/tdm64-cpp.tar.lzma")
+    }
+    - 7z x "%cd%/build/tdm64-core.tar.lzma" -y "-o%cd%/build" >nul
+    - 7z x "%cd%/build/tdm64-core.tar" -y "-oC:/tools/tdm64" >nul
+    - 7z x "%cd%/build/tdm64-binutils.tar.lzma" -y "-o%cd%/build" >nul
+    - 7z x "%cd%/build/tdm64-binutils.tar" -y "-oC:/tools/tdm64" >nul
+    - 7z x "%cd%/build/tdm64-mingw64runtime.tar.lzma" -y "-o%cd%/build" >nul
+    - 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
+    - 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
+    - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
+    - ps: echo "@echo off`nC:\MinGW\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
+    - ps: $env:Path = "C:/tools/tdm64/bin;" + $env:Path
+    - msbuild /version
+    - g++ --version
+    - mingw32-make --version
+      #- cinst mingw
 #- ps: (new-object System.Net.WebClient).Downloadfile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20Installer/tdm64-gcc-5.1.0-2.exe?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftdm-gcc%2Ffiles%2FTDM-GCC%2520Installer%2Ftdm64-gcc-5.1.0-2.exe%2Fdownload&ts=1530907506", "$env:APPVEYOR_BUILD_FOLDER\\tdm-gcc.exe")
 #    - ps: .\\tdm-gcc.exe
 
 build: off
 
+cache:
+    - build/tdm64-core.tar.lzma
+    - build/tdm64-binutils.tar.lzma
+    - build/tdm64-mingw64runtime.tar.lzma
+    - build/tdm64-cpp.tar.lzma
+
 test_script:
-    - make test
+    - premake5 tes
     #- '%CYG_BASH% -lc "export OS=Windows_NT"'
     #- '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

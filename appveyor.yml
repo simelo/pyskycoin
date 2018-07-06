@@ -35,8 +35,8 @@ install:
     - "%PYTHON%\\python.exe -m pip install wheel tox"
       #- choco install make --source=cygwin
     - cinst swig
-    - appveyor DownloadFile https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20Installer/tdm64-gcc-5.1.0-2.exe?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftdm-gcc%2Ffiles%2FTDM-GCC%2520Installer%2Ftdm64-gcc-5.1.0-2.exe%2Fdownload&ts=1530900251
-    - ps: .\tdm64-gss-5.1.0-2.exe
+    - curl -fsS -o tdm-gcc.exe https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20Installer/tdm64-gcc-5.1.0-2.exe?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftdm-gcc%2Ffiles%2FTDM-GCC%2520Installer%2Ftdm64-gcc-5.1.0-2.exe%2Fdownload&ts=1530900251
+    - ps: .\tdm-gcc.exe
 
 #build: off
 

@@ -1,11 +1,10 @@
 image: Visual Studio 2017
 
+stack: go 1.10
+
 environment:
     global:
-        CYG_ROOT: C:\cygwin64
-        CYG_MIRROR: http://cygwin.mirror.constant.com
-        CYG_CACHE: C:\cygwin64\var\cache\setup
-        CYG_BASH: C:\cygwin64\bin\bash
+        GOPATH: c:\gopath
 
     matrix:
         - PYTHON: "C:\\Python27"
@@ -19,23 +18,40 @@ environment:
           DISTUTILS_USE_SDK: "1"
         - PYTHON: "C:\\Python35-x64"
         - PYTHON: "C:\\Python36-x64"
-cache:
-    - '%CYG_CACHE%'
+        - MINGW_DIR: mingw64
+          MINGW_URL: https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z/download
+          MINGW_ARCHIVE: x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
+          WINDBG_DIR: '%ProgramFiles(x86)%\Windows Kits\10\Debuggers\x64'
 
 install:
-    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages autoconf,autogen,automake,cygwin-devel,git,gcc-core,gcc-g++,libncurses-devel,libprotobuf-devel,make,openssh,openssl-devel,pkg-config,zlib-devel'
-    - '%CYG_ROOT%\bin\cygcheck -dc cygwin'
+    - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
+    - 7z x -y "%MINGW_ARCHIVE%" > nul
+    - "%PYTHON%\\python.exe -m ensurepip
+    - "%PYTHON%\\python.exe -m pip install cpp-coveralls==0.3.11
+    - ps: Get-Command sh.exe -All | Remove-Item
     - git submodule init
     - git submodule update
     - cd gopath/src/github.com/skycoin/skycoin
     - git checkout origin/stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
-    - "%PYTHON%\\python.exe -m pip install wheel tox"
+    - "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
     - cinst make
     - cinst swig
+
+
+before_build:
+    - set Path=%CD%\%MINGW_DIR%\bin;%Path%
+    - g++ --version
+    - cmake --version
+    - echo NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%
+    - ps: (Get-Item "${Env:WINDBG_DIR}\dbghelp.dll").VersionInfo
+    - if "%APPVEYOR_REPO_TAG%"=="true" (set CMAKE_BUILD_TYPE=Release) else (set CMAKE_BUILD_TYPE=Debug)
+    - set ENABLE_COVERAGE=yes
+    - if "%APPVEYOR_REPO_TAG%"=="true" set ENABLE_COVERAGE=no
+    - if NOT "%MINGW_DIR%"=="mingw64" set ENABLE_COVERAGE=no
+    - cmake -H. -Bbuild\mingw -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% -DENABLE_COVERAGE=%ENABLE_COVERAGE% -DWINDBG_DIR="%WINDBG_DIR%"
 
 build: off
 
 test_script:
-    - '%CYG_BASH% -lc "export OS=Windows_NT"'
-    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'
+    - cmake --build build\mingw --use-stderr --target test

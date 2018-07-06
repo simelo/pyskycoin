@@ -10,8 +10,8 @@ brew install swig;
 brew install gimme;
 
 # Install Python
-pyenv install 2.7.0
-pyenv install 3.4.8
+pyenv install 2.7
+pyenv install 3.4
 pyenv local 2.7 3.4
 
 # Prepare and initialize pyenv environment

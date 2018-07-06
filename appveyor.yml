@@ -2,10 +2,10 @@ image: Visual Studio 2017
 
 environment:
     global:
-        #CYG_ROOT: C:\cygwin64
-        #CYG_MIRROR: http://cygwin.mirror.constant.com
-        #CYG_CACHE: C:\cygwin64\var\cache\setup
-        #CYG_BASH: C:\cygwin64\bin\bash
+        CYG_ROOT: C:\cygwin64
+        CYG_MIRROR: http://cygwin.mirror.constant.com
+        CYG_CACHE: C:\cygwin64\var\cache\setup
+        CYG_BASH: C:\cygwin64\bin\bash
         GOOS: windows
         GOARCH: amd64
 
@@ -25,8 +25,8 @@ environment:
 #    - '%CYG_CACHE%'
 
 install:
-    #    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages autoconf,autogen,automake,cygwin-devel,git,gcc-core,gcc-g++,libncurses-devel,libprotobuf-devel,make,openssh,openssl-devel,pkg-config,zlib-devel,gcc,g++,gdb'
-    #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
+    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages autoconf,autogen,automake,cygwin-devel,git,libncurses-devel,libprotobuf-devel,make,openssh,openssl-devel,pkg-config,zlib-devel'
+    - '%CYG_ROOT%\bin\cygcheck -dc cygwin'
     - git submodule init
     - git submodule update
     - cd gopath/src/github.com/skycoin/skycoin
@@ -76,6 +76,5 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - make test
-    #- '%CYG_BASH% -lc "export OS=Windows_NT"'
-    #- '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'
+    - '%CYG_BASH% -lc "export OS=Windows_NT"'
+    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

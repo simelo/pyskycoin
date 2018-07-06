@@ -78,9 +78,12 @@ mac_install_name_tool:
 	
 develop:
 	python setup.py develop
-	
-build-libpy: build-libc build-swig
-	python setup.py install
-	
-test: build-libc build-swig
+
+build-libc-swig: build-libc build-swig
+
+test: 
 	tox
+	
+test34: build-swig develop
+	python3.4 setup.py test
+	

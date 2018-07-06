@@ -26,8 +26,8 @@ environment:
 install:
     - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
     - 7z x -y "%MINGW_ARCHIVE%" > nul
-    - "%PYTHON%\\python.exe -m ensurepip
-    - "%PYTHON%\\python.exe -m pip install cpp-coveralls==0.3.11
+    - "%PYTHON%\\python.exe -m ensurepip"
+    - "%PYTHON%\\python.exe -m pip install cpp-coveralls==0.3.11"
     - ps: Get-Command sh.exe -All | Remove-Item
     - git submodule init
     - git submodule update

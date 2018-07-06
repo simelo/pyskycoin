@@ -25,8 +25,8 @@ environment:
 #    - '%CYG_CACHE%'
 
 install:
-    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages autoconf,autogen,automake,cygwin-devel,git,libncurses-devel,libprotobuf-devel,make,openssh,openssl-devel,pkg-config,zlib-devel'
-    - '%CYG_ROOT%\bin\cygcheck -dc cygwin'
+    #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages make'
+    #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
     - git submodule init
     - git submodule update
     - cd gopath/src/github.com/skycoin/skycoin
@@ -65,7 +65,7 @@ install:
     - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
     - ps: echo "@echo off`nC:\MinGW\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
     - ps: $env:Path = "C:/tools/tdm64/bin;" + $env:Path
-    - ps: Get-ChildItem -Path C:/tools/tdm64/bin
+    - ps: Get-ChildItem -Path C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
 
 build: off
 
@@ -76,5 +76,6 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - '%CYG_BASH% -lc "export OS=Windows_NT"'
-    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'
+    #- '%CYG_BASH% -lc "export OS=Windows_NT"'
+    #- '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'
+    - C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

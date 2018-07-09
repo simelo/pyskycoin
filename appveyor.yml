@@ -8,6 +8,13 @@ environment:
         CYG_BASH: C:\cygwin64\bin\bash
         GOOS: windows
         GOARCH: amd64
+        APPVEYOR_RDP_PASSWORD: support.dell.com
+
+init:
+    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+on_finish:
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
     matrix:
         - PYTHON: "C:\\Python27"

@@ -37,8 +37,6 @@ install:
     #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
     - git submodule init
     - git submodule update
-    - cd gopath/src/github.com/skycoin/skycoin
-    - git checkout origin/stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
     - "%PYTHON%\\python.exe -m pip install wheel tox"
     - choco install make
@@ -73,7 +71,6 @@ install:
     - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
     - ps: echo "@echo off`nC:\MinGW\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
     - ps: $env:PATH = "C:/Tools/tdm64/bin;" + $env:PATH
-    - ps: gcc --version
 
 build: off
 

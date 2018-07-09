@@ -8,7 +8,7 @@ environment:
         CYG_BASH: C:\cygwin64\bin\bash
         GOOS: windows
         GOARCH: amd64
-        APPVEYOR_RDP_PASSWORD: support.dell.com
+        APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
 
     matrix:
         - PYTHON: "C:\\Python27"

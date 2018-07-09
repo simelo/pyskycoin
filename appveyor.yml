@@ -71,8 +71,8 @@ install:
     - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
     - ps: echo "@echo off`nC:\MinGW\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
     - ps: $env:PATH = "C:/Tools/tdm64/bin;" + $env:PATH
-    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --packages make python2 python2-devel'
-    - '%CYG_ROOT%\bin\cygcheck -dc cygwin'
+      #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --packages make python2 python2-devel'
+      #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
     - '%CYG_BASH% -lc "python -m ensurepip"'
     - '%CYG_BASH% -lc "pip install setuptools wheel tox"'
 

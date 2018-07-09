@@ -59,9 +59,18 @@ build-swig:
 	
 develop:
 	python setup.py develop
-	
-build-libpy: build-libc build-swig
-	python setup.py install
-	
-test: build-libc build-swig
+
+build-libc-swig: build-libc build-swig
+
+test: 
 	tox
+
+test27: build-swig develop
+	python2.7 setup.py test	
+	
+test34: build-swig develop
+	python3.4 setup.py test
+	
+test35: build-swig develop
+	python3.5 setup.py test
+	

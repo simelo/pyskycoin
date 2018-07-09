@@ -8,6 +8,7 @@ include Makefile
 include gopath/src/github.com/skycoin/skycoin/Makefile
 #include gopath/src/github.com/skycoin/skycoin/build/libskycoin/libskycoin.a
 include skycoin.py
+include *.yml
 
 recursive-include . *.s
 recursive-include . *.go

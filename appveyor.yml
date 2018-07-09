@@ -33,14 +33,15 @@ on_finish:
 
 
 install:
-    #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages make'
-    #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
+    - '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages make python2 python2-devel'
+    - '%CYG_ROOT%\bin\cygcheck -dc cygwin'
+    - '%CYG_BASH% -lc "python -m pip install setuptools wheel tox"'
     - git submodule init
     - git submodule update
     - cd gopath/src/github.com/skycoin/skycoin
     - git checkout origin/stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
-    - "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
+      #- "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
     - choco install make
     - cinst swig
     - ps: >-

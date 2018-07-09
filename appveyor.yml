@@ -10,12 +10,6 @@ environment:
         GOARCH: amd64
         APPVEYOR_RDP_PASSWORD: support.dell.com
 
-init:
-    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-on_finish:
-    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
     matrix:
         - PYTHON: "C:\\Python27"
 #          #- PYTHON: "C:\\Python33"
@@ -30,6 +24,13 @@ on_finish:
 #        - PYTHON: "C:\\Python36-x64"
 #cache:
 #    - '%CYG_CACHE%'
+
+init:
+    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+on_finish:
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 
 install:
     #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --upgrade-also --packages make'

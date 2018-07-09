@@ -74,9 +74,6 @@ install:
     - ps: echo "@echo off`nC:\MinGW\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
     - ps: $env:Path = "C:/tools/tdm64/bin;" + $env:Path
     - ps: Get-ChildItem -Path C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin
-    - go version
-    - gcc --version
-
 
 build: off
 
@@ -88,5 +85,5 @@ cache:
 
 test_script:
     - '%CYG_BASH% -lc "export OS=Windows_NT"'
-    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && CC=C:/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/gcc.exe make test"'
+    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && CC=/C:/tools/tdm64/bin/gcc.exe make test"'
     #- C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\sh -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

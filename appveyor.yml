@@ -9,6 +9,7 @@ environment:
         GOOS: windows
         GOARCH: amd64
         APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
+        MSYS_BASH: c:\msys64\usr\bin\bash
 
     matrix:
         - PYTHON: "C:\\Python27"
@@ -28,8 +29,8 @@ environment:
 init:
     - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
-on_finish:
-    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+      #on_finish:
+      #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 
 install:
@@ -39,7 +40,7 @@ install:
     - git checkout origin/stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
       #- "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
-    - choco install make
+      #- choco install make
     - cinst swig
     - ps: >-
         if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
@@ -85,6 +86,6 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - '%CYG_BASH% -lc "export OS=Windows_NT"'
-    - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && CC=/C:/Tools/tdm64/bin/gcc.exe make test"'
+    - '%MSYS_BASH% -lc "export OS=Windows_NT"'
+    - '%MSYS_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && CC=c:\msys64\usr\bin\gcc.exe make test"'
     #- C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\sh -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

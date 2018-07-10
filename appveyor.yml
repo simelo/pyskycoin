@@ -43,6 +43,7 @@ install:
     - "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
       #- choco install make
     - cinst swig
+    - cinst vcredist140
     - ps: >-
         if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
 

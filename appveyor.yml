@@ -29,8 +29,8 @@ environment:
 init:
     - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
-      #on_finish:
-      #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 
 install:
@@ -39,7 +39,7 @@ install:
     - cd gopath/src/github.com/skycoin/skycoin
     - git checkout origin/stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
-      #- "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
+      - "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
       #- choco install make
     - cinst swig
     - ps: >-
@@ -74,8 +74,8 @@ install:
     - ps: $env:PATH = "C:/Tools/tdm64/bin;" + $env:PATH
       #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --packages make python2 python2-devel'
       #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
-    - '%CYG_BASH% -lc "python -m ensurepip"'
-    - '%CYG_BASH% -lc "pip install setuptools wheel tox"'
+      #- '%CYG_BASH% -lc "python -m ensurepip"'
+      #- '%CYG_BASH% -lc "pip install setuptools wheel tox"'
 
 build: off
 

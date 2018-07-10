@@ -18,9 +18,9 @@ BIN_DIR = $(SKYCOIN_DIR)/bin
 INCLUDE_DIR = $(SKYCOIN_DIR)/include
 FULL_PATH_LIB = $(PWD)/$(BUILDLIBC_DIR)
 
-LIB_FILES = $(shell find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
-SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
-SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
+LIB_FILES = $(shell /usr/bin/find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
+SRC_FILES = $(shell /usr/bin/find $(SKYCOIN_DIR)/src -type f -name "*.go")
+SWIG_FILES = $(shell /usr/bin/find $(LIBSWIG_DIR) -type f -name "*.i")
 
 ifeq ($(shell uname -s),Linux)
 	TEMP_DIR = tmp

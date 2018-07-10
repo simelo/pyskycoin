@@ -3,13 +3,10 @@
 SHELL := /bin/bash
 
 PWD = $(shell pwd)
-ifeq ($(OS),Windows_NT)
-	GOPATH_DIR = "C:/projects/pyskycoin/gopath"
-else
-	GOPATH_DIR = $(PWD)/gopath
-endif
-SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
+
+endifSKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
 SKYBUILD_DIR = $(SKYCOIN_DIR)/build
+GOPATH_DIR = $(PWD)/gopath
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
 LIBC_DIR = $(SKYCOIN_DIR)/lib/cgo
 LIBSWIG_DIR = $(SKYCOIN_DIR)/lib/swig
@@ -17,16 +14,19 @@ BUILD_DIR = build
 BIN_DIR = $(SKYCOIN_DIR)/bin
 INCLUDE_DIR = $(SKYCOIN_DIR)/include
 FULL_PATH_LIB = $(PWD)/$(BUILDLIBC_DIR)
-
-LIB_FILES = $(shell /usr/bin/find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
-SRC_FILES = $(shell /usr/bin/find $(SKYCOIN_DIR)/src -type f -name "*.go")
-SWIG_FILES = $(shell /usr/bin/find $(LIBSWIG_DIR) -type f -name "*.i")
+FIND_COMMAND = find
 
 ifeq ($(shell uname -s),Linux)
 	TEMP_DIR = tmp
+else ifeq ($(shell uname -o),Msys)
+	GOPATH_DIR = "C:/projects/pyskycoin/gopath"
+	FIND_COMMAND = /usr/bin/find
 else ifeq ($(shell uname -s),Darwin)
 	TEMP_DIR = $TMPDIR
-endif 
+
+LIB_FILES = $(shell $(FIND_COMMAND) $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
+SRC_FILES = $(shell $(FIND_COMMAND) $(SKYCOIN_DIR)/src -type f -name "*.go")
+SWIG_FILES = $(shell $(FIND_COMMAND) $(LIBSWIG_DIR) -type f -name "*.i")
 
 configure:
 	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include

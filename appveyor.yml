@@ -8,6 +8,7 @@ environment:
         CYG_BASH: C:\cygwin64\bin\bash
         GOOS: windows
         GOARCH: amd64
+        GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
         APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
         MSYS_BASH: c:\msys64\usr\bin\bash
 

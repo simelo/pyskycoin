@@ -39,7 +39,7 @@ install:
     - cd gopath/src/github.com/skycoin/skycoin
     - git checkout origin/stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
-      - "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
+    - "%PYTHON%\\python.exe -m pip install setuptools wheel tox"
       #- choco install make
     - cinst swig
     - ps: >-

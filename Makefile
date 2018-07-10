@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 PWD = $(shell pwd)
 
-endifSKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
+SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
 SKYBUILD_DIR = $(SKYCOIN_DIR)/build
 GOPATH_DIR = $(PWD)/gopath
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
@@ -23,6 +23,7 @@ else ifeq ($(shell uname -o),Msys)
 	FIND_COMMAND = /usr/bin/find
 else ifeq ($(shell uname -s),Darwin)
 	TEMP_DIR = $TMPDIR
+endif
 
 LIB_FILES = $(shell $(FIND_COMMAND) $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell $(FIND_COMMAND) $(SKYCOIN_DIR)/src -type f -name "*.go")

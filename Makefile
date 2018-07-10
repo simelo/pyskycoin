@@ -19,7 +19,7 @@ FIND_COMMAND = find
 ifeq ($(shell uname -s),Linux)
 	TEMP_DIR = tmp
 else ifeq ($(shell uname -o),Msys)
-	GOPATH_DIR = "C:/projects/pyskycoin/gopath"
+	#GOPATH_DIR = "C:/projects/pyskycoin/gopath"
 	FIND_COMMAND = /usr/bin/find
 else ifeq ($(shell uname -s),Darwin)
 	TEMP_DIR = $TMPDIR

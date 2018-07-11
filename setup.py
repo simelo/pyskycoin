@@ -77,6 +77,9 @@ library_file = path.join(lib_path, 'libskycoin.a')
 extra_link_args = []
 if platform.system() == "Darwin":
 	extra_link_args += ["-framework", "Foundation", "-framework", "Security"]
+elif platform.system() == "Windows"
+	extra_link_args += ["-l", "winmm", "-l", "ntdll", "-l", "Ws2_32"]
+
 extra_link_args.append(library_file)
 
 setup(

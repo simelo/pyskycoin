@@ -63,7 +63,7 @@ develop:
 
 build-libc-swig: build-libc build-swig
 
-test: 
+test:
 	tox
 
 test27: build-swig develop

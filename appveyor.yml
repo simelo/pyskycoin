@@ -74,9 +74,11 @@ install:
     - 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
     - 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
     - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
-    - ps: echo "@echo off`nC:\MinGW\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
-    - set PATH=c:\msys64\usr\bin;%PATH%
-    - set PATH=c:\Tools\tdm64\bin;%PATH%
+    - ps: echo "@echo off`nC:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
+    - ps: echo "@echo off`nC:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/bin/make.bat"
+    - set PATH=C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\bin;%PATH%
+      #- set PATH=c:\msys64\usr\bin;%PATH%
+      #- set PATH=c:\Tools\tdm64\bin;%PATH%
       # - ps: $env:PATH = "C:/Tools/tdm64/bin;" + $env:PATH
       #- set Path=c:\msys64\usr\bin;%Path%
       #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --packages make python2 python2-devel'

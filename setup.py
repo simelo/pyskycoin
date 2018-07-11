@@ -22,7 +22,7 @@ try:
     with open(path.join(script_dirname, 'README.md'), encoding='utf-8') as f:
         long_description = f.read()
 except:
-    print("Pyskycoin in Windows")
+    long_description = "Pyskycoin Windows"
 
 class skycoin_build_ext(build_ext, object):
 

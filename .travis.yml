@@ -52,6 +52,10 @@ matrix:
         - PYTHON=3.6.5
         - TOXENV=py36
 
+branches:
+    except:
+        - stdevNorge_t17_pyskycoin_ci_appveyor_config
+
 before_install:
     - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then bash ./.travis/install-osx.sh; fi
     - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme; fi

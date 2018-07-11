@@ -13,7 +13,7 @@ environment:
         MSYS_BASH: c:\msys64\usr\bin\bash
 
     matrix:
-        - PYTHON: "C:\\Python27"
+        - PYTHON: "C:\\Python34"
 #          #- PYTHON: "C:\\Python33"
 #        - PYTHON: "C:\\Python34"
 #        - PYTHON: "C:\\Python35"
@@ -74,8 +74,7 @@ install:
     - 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
     - 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
     - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
-    - ps: echo "@echo off`nC:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/tools/tdm64/bin/mingw32-make.bat"
-    - ps: echo "@echo off`nC:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/make.bat"
+      #- ps: echo "@echo off`nC:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/make.bat"
     - set PATH=c:\msys64\usr\bin;%PATH%
     - set PATH=c:\Tools\tdm64\bin;%PATH%
       # - ps: $env:PATH = "C:/Tools/tdm64/bin;" + $env:PATH
@@ -94,7 +93,6 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - '%MSYS_BASH% -lc "export OS=Windows_NT"'
     - make test
       #- '%MSYS_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && CC=c:\msys64\usr\bin\gcc.exe make test"'
     #- C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\sh -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

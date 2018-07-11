@@ -18,8 +18,11 @@ import sys
 script_dirname = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(script_dirname, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+try:
+    with open(path.join(script_dirname, 'README.md'), encoding='utf-8') as f:
+        long_description = f.read()
+except:
+    print("Pyskycoin in Windows")
 
 class skycoin_build_ext(build_ext, object):
 

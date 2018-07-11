@@ -2,10 +2,6 @@ image: Visual Studio 2015
 
 environment:
     global:
-        #CYG_ROOT: C:\cygwin64
-        #CYG_MIRROR: http://cygwin.mirror.constant.com
-        #CYG_CACHE: C:\cygwin64\var\cache\setup
-        #CYG_BASH: C:\cygwin64\bin\bash
         GOOS: windows
         GOARCH: amd64
         GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
@@ -24,8 +20,6 @@ environment:
 #          DISTUTILS_USE_SDK: "1"
 #        - PYTHON: "C:\\Python35-x64"
 #        - PYTHON: "C:\\Python36-x64"
-#cache:
-#    - '%CYG_CACHE%'
 
 init:
     - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -41,11 +35,7 @@ install:
     - git checkout origin/stdevEclipse_t1568_swig_files
     - git pull origin stdevEclipse_t1568_swig_files
     - cd C:\projects\pyskycoin
-      #- "%PYTHON%\\python.exe -m pip install --upgrade pip setuptools wheel"
-      #- choco install make
     - cinst swig
-      #- curl -fsS -o pythonc.msi https://download.microsoft.com/download/7/9/6/796EF2E4-801B-4FC4-AB28-B59FBF6D907B/VCForPython27.msi
-      #- msiexec /i pythonc.msi /qn /norestart
     - ps: >-
         if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
 
@@ -74,17 +64,10 @@ install:
     - 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
     - 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
     - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
-      #- ps: echo "@echo off`nC:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\mingw32-make.exe %*" | Out-File -Encoding ascii "C:/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/make.bat"
     - ps: echo "@echo off`nC:\Python34-x64/python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
-    - ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32 %*" | Out-File -Encoding ascii "C:/Python34/Lib/distutils/distutils.cfg"
+    - ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
     - set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;c:\Python34-x64\Scripts;%PATH%
     - python34 -m pip install setuptools tox wheel
-      # - ps: $env:PATH = "C:/Tools/tdm64/bin;" + $env:PATH
-      #- set Path=c:\msys64\usr\bin;%Path%
-      #- '%CYG_ROOT%\setup-x86_64.exe --quiet-mode --no-shortcuts --packages make python2 python2-devel'
-      #- '%CYG_ROOT%\bin\cygcheck -dc cygwin'
-      #- '%CYG_BASH% -lc "python -m ensurepip"'
-      #- '%CYG_BASH% -lc "pip install setuptools wheel tox"'
 
 build: off
 
@@ -96,5 +79,3 @@ cache:
 
 test_script:
     - make test
-      #- '%MSYS_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER && CC=c:\msys64\usr\bin\gcc.exe make test"'
-    #- C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin\sh -lc "cd $APPVEYOR_BUILD_FOLDER && make test"'

@@ -1,5 +1,7 @@
 image: Visual Studio 2017
 
+platform: x64
+
 environment:
     global:
         GOOS: windows
@@ -71,6 +73,8 @@ install:
 
 build: off
 
+deploy: off
+
 cache:
     - build/tdm64-core.tar.lzma
     - build/tdm64-binutils.tar.lzma
@@ -78,4 +82,4 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - make test
+    - c:\msys64\usr\bin\bash -e -l -c "make test"

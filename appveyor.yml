@@ -31,13 +31,13 @@ on_finish:
 
 
 install:
-    - git submodule init
-    - git submodule update
-    - cd gopath/src/github.com/skycoin/skycoin
-    - git checkout origin/stdevEclipse_t1568_swig_files
-    - git pull origin stdevEclipse_t1568_swig_files
-    - cd C:\projects\pyskycoin
-    - cinst swig
+    - cmd: git submodule init
+    - cmd: git submodule update
+    - cmd: cd gopath/src/github.com/skycoin/skycoin
+    - cmd: git checkout origin/stdevEclipse_t1568_swig_files
+    - cmd: git pull origin stdevEclipse_t1568_swig_files
+    - cmd: cd C:\projects\pyskycoin
+    - cmd: cinst swig
     - ps: >-
         if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
 
@@ -58,18 +58,18 @@ install:
             echo "Downloading tdm64-cpp..."
             (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-c%2B%2B.tar.lzma", "$pwd/build/tdm64-cpp.tar.lzma")
         }
-    - 7z x "%cd%/build/tdm64-core.tar.lzma" -y "-o%cd%/build" >nul
-    - 7z x "%cd%/build/tdm64-core.tar" -y "-oC:/tools/tdm64" >nul
-    - 7z x "%cd%/build/tdm64-binutils.tar.lzma" -y "-o%cd%/build" >nul
-    - 7z x "%cd%/build/tdm64-binutils.tar" -y "-oC:/tools/tdm64" >nul
-    - 7z x "%cd%/build/tdm64-mingw64runtime.tar.lzma" -y "-o%cd%/build" >nul
-    - 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
-    - 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
-    - 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
+    - cmd: 7z x "%cd%/build/tdm64-core.tar.lzma" -y "-o%cd%/build" >nul
+    - cmd: 7z x "%cd%/build/tdm64-core.tar" -y "-oC:/tools/tdm64" >nul
+    - cmd: 7z x "%cd%/build/tdm64-binutils.tar.lzma" -y "-o%cd%/build" >nul
+    - cmd: 7z x "%cd%/build/tdm64-binutils.tar" -y "-oC:/tools/tdm64" >nul
+    - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar.lzma" -y "-o%cd%/build" >nul
+    - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
+    - cmd: 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
+    - cmd: 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
     - ps: echo "@echo off`nC:\Python34-x64/python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
     - ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
-    - set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;c:\Python34-x64\Scripts;%PATH%
-    - python34 -m pip install setuptools tox wheel
+    - cmd: set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;c:\Python34-x64\Scripts;%PATH%
+    - cmd: python34 -m pip install --upgrade setuptools tox wheel pip
 
 build: off
 
@@ -82,4 +82,4 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - c:\msys64\usr\bin\bash -e -l -c "make test"
+    - make test

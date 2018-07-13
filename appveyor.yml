@@ -1,4 +1,4 @@
-image: Visual Studio 2015
+image: Visual Studio 2017
 
 platform: x64
 
@@ -71,8 +71,7 @@ install:
       #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
     - cmd: set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;c:\Python34-x64\Scripts;%PATH%
     - cmd: C:\Python34-x64\python.exe -m pip install --upgrade setuptools tox wheel pip
-      #- cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2015\Community\VC\Auxiliary\Build\vcvars64.bat"
-    - cmd: call "C:\Users\appveyor\AppData\Local\Programs\Common\Microsoft\Visual C++ for Python\9.0\VC\bin\vcvars64.bat"
+    - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 build: off
 

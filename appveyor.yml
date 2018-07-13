@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Visual Studio 2015
 
 platform: x64
 
@@ -24,11 +24,11 @@ environment:
 #        - PYTHON: "C:\\Python35-x64"
 #        - PYTHON: "C:\\Python36-x64"
 
-          #init:
-          #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+init:
+    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
-          #on_finish:
-          #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 
 install:
@@ -71,7 +71,7 @@ install:
     - ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
     - cmd: set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;c:\Python34-x64\Scripts;%PATH%
     - cmd: python34 -m pip install --upgrade setuptools tox wheel pip
-    - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2015\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 build: off
 

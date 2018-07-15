@@ -8,11 +8,11 @@ environment:
         GOARCH: amd64
         GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
         APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
-        MSYS_BASH: c:\msys64\usr\bin\bash
 
     matrix:
         - PYTHON: "C:\\Python34-x64"
           DISTUTILS_USE_SDK: "1"
+        - PYTHON: "C:\\Python34"
 #          #- PYTHON: "C:\\Python33"
 #        - PYTHON: "C:\\Python34"
 #        - PYTHON: "C:\\Python35"
@@ -29,7 +29,6 @@ init:
 
 on_finish:
     - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
 
 install:
     - cmd: git submodule init
@@ -67,11 +66,11 @@ install:
     - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
     - cmd: 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
     - cmd: 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
-    - ps: echo "@echo off`nC:\Python34-x64\python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
+    - ps: echo "@echo off`n%PYTHON%\\python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
       #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
-    - cmd: set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;c:\Python34-x64\Scripts;%PATH%
-    - cmd: C:\Python34-x64\python.exe -m pip install --upgrade setuptools tox wheel pip
-    - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    - cmd: set PATH=c:\Tools\tdm64\bin;c:\msys64\usr\bin;%PYTHON%\\Scripts;%PATH%
+    - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"
+      #- cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 build: off
 
@@ -84,4 +83,4 @@ cache:
     - build/tdm64-cpp.tar.lzma
 
 test_script:
-    - make test
+    - "build.cmd %PYTHON%\\python.exe -m tox"

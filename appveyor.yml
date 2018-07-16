@@ -10,19 +10,16 @@ environment:
         APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
 
     matrix:
+        - PYTHON: "C:\\Python33"
+        - PYTHON: "C:\\Python34"
+        - PYTHON: "C:\\Python35"
+        - PYTHON: "C:\\Python27-x64"
+        - PYTHON: "C:\\Python33-x64"
+          DISTUTILS_USE_SDK: "1"
         - PYTHON: "C:\\Python34-x64"
           DISTUTILS_USE_SDK: "1"
-        - PYTHON: "C:\\Python34"
-#          #- PYTHON: "C:\\Python33"
-#        - PYTHON: "C:\\Python34"
-#        - PYTHON: "C:\\Python35"
-#        - PYTHON: "C:\\Python27-x64"
-#        - PYTHON: "C:\\Python33-x64"
-#          DISTUTILS_USE_SDK: "1"
-#        - PYTHON: "C:\\Python34-x64"
-#          DISTUTILS_USE_SDK: "1"
-#        - PYTHON: "C:\\Python35-x64"
-#        - PYTHON: "C:\\Python36-x64"
+        - PYTHON: "C:\\Python35-x64"
+        - PYTHON: "C:\\Python36-x64"
 
           #init:
           #    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

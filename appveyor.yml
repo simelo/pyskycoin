@@ -35,7 +35,7 @@ install:
     - cmd: git pull origin stdevEclipse_t1568_swig_files
     - cmd: cd C:\projects\pyskycoin
     - cmd: curl -fsS -o swigwin-3.0.12.zip http://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip
-    - cmd: 7z x swigwin-3.0.12.zip
+    - cmd: 7z e swigwin-3.0.12.zip
     - ps: >-
         if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
 

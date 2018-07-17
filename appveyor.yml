@@ -65,7 +65,7 @@ install:
     - cmd: 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
     - cmd: 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
       #- ps: echo "@echo off`n%PYTHON%\\python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
-    - ps: echo "@echo off`n%c:\projects\pyskycoin\swigwin-3.0.12\swig.exe %*" | Out-File -Encoding ascii "C:/msys64/user/bin/swig.bat"
+    - ps: echo "@echo off`n%c:\projects\pyskycoin\swigwin-3.0.12\swig.exe %*" | Out-File -Encoding ascii "C:\msys64\usr\bin\swig.bat"
       #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
     - cmd: set PATH=c:\msys64\usr\bin;%PYTHON%\\Scripts;%PATH%
     - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"

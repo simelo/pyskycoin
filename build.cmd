@@ -16,7 +16,7 @@ IF "%DISTUTILS_USE_SDK%"=="1" (
     SET TOX_TESTENV_PASSENV=DISTUTILS_USE_SDK MSSdk INCLUDE LIB
 ) ELSE (
     ECHO Using default MSVC build environment
-    SET CL=/MTd
+    SET _CL_=/MTd
 )
 
 CALL %*

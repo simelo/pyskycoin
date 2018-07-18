@@ -28,6 +28,7 @@ on_finish:
     - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
+    - cmd: set LINK=/MTd%LINK%
     - cmd: git submodule init
     - cmd: git submodule update
     - cmd: cd gopath/src/github.com/skycoin/skycoin

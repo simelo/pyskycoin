@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: 0.24.4.{build}
 image: Visual Studio 2017
 platform:
   - x64
@@ -57,7 +57,7 @@ install:
 #  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
   - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%\bin;%CYGWIN_64%\bin;%PATH%
   - python --version
-  - go get -u github.com/go-clang/v5.0/...
+  - go get github.com/go-clang/bootstrap github.com/go-clang/gen
   - cmd: git submodule init
   - cmd: git submodule update
   - cmd: cd gopath/src/github.com/skycoin/skycoin
@@ -97,10 +97,16 @@ install:
     #- ps: echo "@echo off`n%PYTHON%\\python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
     #- ps: echo "@echo off`n%c:\projects\pyskycoin\swigwin-3.0.12\swig.exe %*" | Out-File -Encoding ascii "C:\msys64\usr\bin\swig.bat"
     #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
-  - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"
+  - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pipf"
   - cmd: set PATH=c:\projects\pyskycoin\swigwin-3.0.12;%PYTHON%\\Scripts;%PATH%
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - cmd: swig -version
+#  # Download, decompress and copy gimme to system folder
+#  - ps: >-
+#      ((new-object net.webclient).DownloadString('http://www.dlldownloader.com/gimme-dll/download/41c439f31bfea636635533d4ae192954/62bfe9e0d95fef0b1379933e0c4168a3/'))
+#
+#  # Build
+#  - cmd: cd C:\projects\pyskycoin
 
 build: off
 

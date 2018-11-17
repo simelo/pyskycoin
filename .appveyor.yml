@@ -57,7 +57,8 @@ install:
 #  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
   - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%\bin;%CYGWIN_64%\bin;%PATH%
   - python --version
-  - go get github.com/go-clang/bootstrap github.com/go-clang/gen
+  - gcc --version
+#  - go get github.com/go-clang/bootstrap github.com/go-clang/gen
   - cmd: git submodule init
   - cmd: git submodule update
   - cmd: cd gopath/src/github.com/skycoin/skycoin
@@ -113,5 +114,6 @@ build: off
 deploy: off
 
 test_script:
-  - "%PYTHON%\\python.exe -m tox"
+  - make test-ci
+#  - "%PYTHON%\\python.exe -m tox"
 #  - "build.cmd %PYTHON%\\python.exe -m tox"

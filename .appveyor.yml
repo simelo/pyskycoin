@@ -9,6 +9,7 @@ environment:
     GOARCH: amd64
     GOPATH: c:\gopath
 #    GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
+    GIT: c:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
     CYGWIN_64: c:\cygwin64
@@ -54,7 +55,7 @@ cache:
 
 install:
 #  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
-  - set PATH=%PYTHON%;%PYTHON%\Scripts;%GOPATH%\bin;%CYGWIN_64%\bin;%PATH%
+  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%\bin;%CYGWIN_64%\bin;%PATH%
   - python --version
   - go get -u github.com/go-clang/v5.0/...
   - cmd: git submodule init

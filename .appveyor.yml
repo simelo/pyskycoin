@@ -7,7 +7,8 @@ environment:
   global:
     GOOS: windows
     GOARCH: amd64
-    GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
+    GOPATH: c:\gopath
+#    GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
     CYGWIN_64: c:\cygwin64
@@ -50,9 +51,10 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
-  - set PATH=%PYTHON%;%PYTHON%\Scripts;%CYGWIN_64%\bin;%PATH%
+#  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%GOPATH%\bin;%CYGWIN_64%\bin;%PATH%
   - python --version
+  - go get -u github.com/go-clang/v5.0/...
   - cmd: git submodule init
   - cmd: git submodule update
   - cmd: cd gopath/src/github.com/skycoin/skycoin

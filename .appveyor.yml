@@ -42,6 +42,8 @@ environment:
     #    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     #
 
+stack: go 1.11
+
 # cache to build faster
 cache:
   - build/tdm64-core.tar.lzma

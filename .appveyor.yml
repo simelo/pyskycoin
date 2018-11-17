@@ -50,7 +50,9 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - set PATH=%CYGWIN_64%\bin;c:\go\bin;%PATH%
+  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%CYGWIN_64%\bin;%PATH%
+  - python --version
   - cmd: git submodule init
   - cmd: git submodule update
   - cmd: cd gopath/src/github.com/skycoin/skycoin

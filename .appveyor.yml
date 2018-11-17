@@ -1,0 +1,87 @@
+image: Visual Studio 2017
+
+platform: x64
+
+environment:
+  global:
+    GOOS: windows
+    GOARCH: amd64
+    GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
+    #APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
+
+  matrix:
+  #- PYTHON: "C:\\Python33"
+  #        - PYTHON: "C:\\Python34"
+  #        - PYTHON: "C:\\Python35"
+  #        - PYTHON: "C:\\Python27-x64"
+  #        - PYTHON: "C:\\Python33-x64"
+  #          DISTUTILS_USE_SDK: "1"
+  #- PYTHON: "C:\\Python34-x64"
+  #  DISTUTILS_USE_SDK: "1"
+  #        - PYTHON: "C:\\Python35-x64"
+  - PYTHON: "C:\\Python36-x64"
+
+    #init:
+    #    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    #
+    #on_finish:
+    #    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    #
+install:
+- cmd: git submodule init
+- cmd: git submodule update
+- cmd: cd gopath/src/github.com/skycoin/skycoin
+- cmd: git checkout origin/stdevEclipse_t1568_swig_files
+- cmd: git pull origin stdevEclipse_t1568_swig_files
+- cmd: cd C:\projects\pyskycoin
+- cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
+- cmd: 7z x swigwin-3.0.12.zip
+- ps: >-
+    if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
+
+        echo "TDM-GCC64 not found on build/, downloading..."
+
+        md -Force build | Out-Null
+        md -Force C:/tools/tdm64 | Out-Null
+
+        echo "Downloading tdm64-core..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-core.tar.lzma", "$pwd/build/tdm64-core.tar.lzma")
+
+        echo "Downloading tdm64-binutils..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-2.25-tdm64-1.tar.lzma", "$pwd/build/tdm64-binutils.tar.lzma")
+
+        echo "Downloading tdm64-mingw64runtime..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%205%20series/mingw64runtime-v4-git20150618-gcc5-tdm64-1.tar.lzma", "$pwd/build/tdm64-mingw64runtime.tar.lzma")
+
+        echo "Downloading tdm64-cpp..."
+        (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-c%2B%2B.tar.lzma", "$pwd/build/tdm64-cpp.tar.lzma")
+    }
+- cmd: 7z x "%cd%/build/tdm64-core.tar.lzma" -y "-o%cd%/build" >nul
+- cmd: 7z x "%cd%/build/tdm64-core.tar" -y "-oC:/tools/tdm64" >nul
+- cmd: 7z x "%cd%/build/tdm64-binutils.tar.lzma" -y "-o%cd%/build" >nul
+- cmd: 7z x "%cd%/build/tdm64-binutils.tar" -y "-oC:/tools/tdm64" >nul
+- cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar.lzma" -y "-o%cd%/build" >nul
+- cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
+- cmd: 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
+- cmd: 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
+  #- ps: echo "@echo off`n%PYTHON%\\python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
+  #- ps: echo "@echo off`n%c:\projects\pyskycoin\swigwin-3.0.12\swig.exe %*" | Out-File -Encoding ascii "C:\msys64\usr\bin\swig.bat"
+  #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
+- cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"
+- cmd: set PATH=c:\projects\pyskycoin\swigwin-3.0.12;%PYTHON%\\Scripts;%PATH%
+- cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+- cmd: swig -version
+
+build: off
+
+deploy: off
+
+cache:
+- build/tdm64-core.tar.lzma
+- build/tdm64-binutils.tar.lzma
+- build/tdm64-mingw64runtime.tar.lzma
+- build/tdm64-cpp.tar.lzma
+
+test_script:
+- "%PYTHON%\\python.exe -m tox"
+#- "build.cmd %PYTHON%\\python.exe -m tox"

@@ -115,6 +115,8 @@ deploy: off
 
 before_test:
   - cmd: cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\
+  - cmd: go get github.com/gz-c/gox
+  - cmd: go get -t ./...
   - cmd: make build-libc
 
 test_script:

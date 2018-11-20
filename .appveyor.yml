@@ -114,7 +114,7 @@ build: off
 deploy: off
 
 before_test:
-  - cmd: cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\lib\cgo
+  - cmd: cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\
   - cmd: make build-libc
 
 test_script:

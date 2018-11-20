@@ -60,7 +60,7 @@ install:
   - gcc --version
 #  - go get github.com/go-clang/bootstrap github.com/go-clang/gen
   - cmd: git submodule update --init --recursive --remote
-  - cmd: git submodule foreach git checkout develop
+#  - cmd: git submodule foreach git checkout develop
   - cmd: cd gopath/src/github.com/skycoin/skycoin
   - cmd: git checkout origin/stdevEclipse_t1568_swig_files
   - cmd: git pull origin stdevEclipse_t1568_swig_files
@@ -115,7 +115,7 @@ deploy: off
 
 before_test:
   - ps: >-
-      cd cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\lib\cgo
+      cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\lib\cgo
       make build-libc
 
 

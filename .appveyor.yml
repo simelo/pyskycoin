@@ -13,7 +13,7 @@ environment:
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
     CYGWIN_64: c:\cygwin64
-    #APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
+    APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
 
   matrix:
   #- PYTHON: "C:\\Python33"
@@ -36,12 +36,11 @@ environment:
       PYTHON_ARCH: 64
       TEST_MODE: full
 
-    #init:
-    #    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-    #
-    #on_finish:
-    #    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-    #
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 stack: go 1.11
 

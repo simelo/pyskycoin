@@ -54,7 +54,9 @@ cache:
 
 install:
 #  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
-  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%\bin;%CYGWIN_64%\bin;%PATH%
+  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%;%CYGWIN_64%\bin;%PATH%
+  - echo %PATH%
+  - env
   - python --version
   - gcc --version
 #  - go get github.com/go-clang/bootstrap github.com/go-clang/gen

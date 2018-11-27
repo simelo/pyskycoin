@@ -7,8 +7,8 @@ environment:
   global:
     GOOS: windows
     GOARCH: amd64
-    GOPATH: c:\gopath
-#    GOPATH: $APPVEYOR_BUILD_FOLDER/gopath
+#    GOPATH: c:\gopath
+    GOPATH: $APPVEYOR_BUILD_FOLDER\gopath
     GIT: c:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64

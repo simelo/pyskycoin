@@ -8,7 +8,7 @@ environment:
     GOOS: windows
     GOARCH: amd64
 #    GOPATH: c:\gopath
-    GOPATH: $APPVEYOR_BUILD_FOLDER\gopath
+    GOPATH: C:\projects\pyskycoin\gopath\
     GIT: c:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
@@ -55,7 +55,6 @@ cache:
 install:
 #  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
   - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%;%CYGWIN_64%\bin;%PATH%
-  - echo %PATH%
   - env
   - python --version
   - gcc --version

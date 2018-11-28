@@ -52,7 +52,7 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
 #  - env
   - python --version
   - gcc --version
@@ -115,6 +115,7 @@ before_test:
   - cmd: mingw32-make build-libc
 
 test_script:
+  - cmd: cd C:\projects\pyskycoin
 #  - mingw32-make build-libc
 #  - mingw32-make build-swig
 #  - mingw32-make develop

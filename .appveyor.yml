@@ -53,6 +53,7 @@ cache:
 
 install:
   - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
+  - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
 #  - env
   - python --version
   - gcc --version

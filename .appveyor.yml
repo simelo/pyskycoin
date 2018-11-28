@@ -115,9 +115,8 @@ before_test:
 
 test_script:
   - cmd: cd C:\projects\pyskycoin\
-#  - mingw32-make build-libc
+  - mingw32-make build-libc
 #  - mingw32-make build-swig
 #  - mingw32-make develop
-  - cmd: mingw32-make test
-#  - "%PYTHON%\\python.exe -m tox"
-#  - "build.cmd %PYTHON%\\python.exe -m tox"
+#  - cmd: mingw32-make test
+  - "%PYTHON%\\python.exe -m tox"

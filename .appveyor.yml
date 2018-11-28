@@ -12,7 +12,6 @@ environment:
     GIT: c:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
-    CYGWIN_64: c:\cygwin64
     APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
 
   matrix:
@@ -53,13 +52,10 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-#  - C:\cygwin64\bin\du -hs "%LOCALAPPDATA%\pip\Cache"
-#  - cmd: C:\cygwin64\setup-x86_64.exe -qnNdO -R C:/cygwin64 -s http://cygwin.mirror.constant.com -l C:/cygwin64/var/cache/setup -P mingw64-x86_64-gcc-g++ -P mingw64-x86_64-gcc-core -P mingw64-i686-gcc-g++ -P mingw64-i686-gcc-core
-  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%GOPATH%;%CYGWIN_64%\bin;%PATH%
+  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
   - env
   - python --version
   - gcc --version
-#  - go get github.com/go-clang/bootstrap github.com/go-clang/gen
   - cmd: git submodule update --init --recursive --remote
 #  - cmd: git submodule foreach git checkout develop
   - cmd: cd gopath/src/github.com/skycoin/skycoin
@@ -116,7 +112,7 @@ before_test:
   - cmd: cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\
   - cmd: go get github.com/gz-c/gox
   - cmd: go get -t ./...
-  - cmd: make build-libc
+  - cmd: mingw32-make build-libc
 
 test_script:
 #  - make build-libc

@@ -35,11 +35,11 @@ environment:
       PYTHON_ARCH: 64
       TEST_MODE: full
 
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#init:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 stack: go 1.11
 
@@ -53,7 +53,7 @@ cache:
 
 install:
   - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
-  - env
+#  - env
   - python --version
   - gcc --version
   - cmd: git submodule update --init --recursive --remote
@@ -115,6 +115,9 @@ before_test:
   - cmd: mingw32-make build-libc
 
 test_script:
-#  - make build-libc
+#  - mingw32-make build-libc
+#  - mingw32-make build-swig
+#  - mingw32-make develop
+  - cmd: mingw32-make test
 #  - "%PYTHON%\\python.exe -m tox"
-  - "build.cmd %PYTHON%\\python.exe -m tox"
+#  - "build.cmd %PYTHON%\\python.exe -m tox"

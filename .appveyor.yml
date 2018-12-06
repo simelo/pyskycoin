@@ -100,8 +100,8 @@ install:
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - cmd: swig -version
   # Download, decompress and copy gimme to system folder
-  - cmd: curl -o gimme-dll.zip http://www.dlldownloader.com/gimme-dll/download/41c439f31bfea636635533d4ae192954/6467a807837072dbd28a0124bb5dc3f3/
-  - cmd: 7z x gimme-dll.zip
+  - cmd: curl -o gimme.dll https://fix4dll.com/get?file=gimme.dll&md5=9BF09079226324C2C4A8A65A880CFD41
+#  - cmd: 7z x gimme-dll.zip
   - cmd: cp gimme.dll C:\Windows\SysWOW64
 
 build: off

@@ -68,4 +68,4 @@ test-ci:
 	tox
 
 test: build-libc build-swig develop
-$(PYTHON_BIN) setup.py test
+	$(PYTHON_BIN) setup.py test

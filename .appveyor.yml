@@ -11,7 +11,7 @@ environment:
     GIT: c:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
-    APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
+    # APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
 
   matrix:
   #- PYTHON: "C:\\Python33"
@@ -115,8 +115,8 @@ before_test:
 
 test_script:
   - cmd: cd C:\projects\pyskycoin\
-#  - mingw32-make build-libc
+  - mingw32-make build-libc
 #  - mingw32-make build-swig
 #  - mingw32-make develop
-  - cmd: mingw32-make test
+  # - cmd: mingw32-make test
 #  - "%PYTHON%\\python.exe -m tox"

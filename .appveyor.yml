@@ -115,7 +115,8 @@ before_test:
 
 test_script:
   - cmd: cd C:\projects\pyskycoin\
-  - mingw32-make build-libc
+  - make build-libc
+  - make build-swig
 #  - mingw32-make build-swig
 #  - mingw32-make develop
   # - cmd: mingw32-make test

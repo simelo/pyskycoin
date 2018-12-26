@@ -1,4 +1,4 @@
-version: 0.24.4.{build}
+version: 0.25.0.{build}
 image: Visual Studio 2017
 platform:
   - x64
@@ -115,8 +115,8 @@ before_test:
 
 test_script:
   - cmd: cd C:\projects\pyskycoin\
-  - make build-libc
-  - make build-swig
+  - make test-ci
+  # - make build-swig
   # - python setup.py develop
 #  - mingw32-make build-swig
 #  - mingw32-make develop

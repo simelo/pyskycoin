@@ -73,7 +73,7 @@ install:
   - git submodule update --init --recursive --remote
 #  - cmd: git submodule foreach git checkout develop
   - cd gopath/src/github.com/skycoin/skycoin
-  - git checkout origin/stdevEclipse_t1568_swig_files
+  - git checkout develop
 #  - cmd: git pull origin stdevEclipse_t1568_swig_files
   - cd %APPVEYOR_BUILD_FOLDER%
   # - cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
@@ -138,7 +138,7 @@ on_success:
 
 # on build failure
 on_failure:
-  - type ./.tox/${TOXENV}/log/${TOXENV}-*.log
+  - type ./.tox/%TOX_ENV%/log/%TOX_ENV%-*.log
 
 # after build failure or success
 on_finish:

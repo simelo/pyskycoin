@@ -63,7 +63,7 @@ cache:
 
 install:
   - bash -lc "pacman --noconfirm -S bash pacman pacman-mirrors"
-  - bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw64/mingw-w64-x86_64-pkg-config mingw-w64-x86_64-devhelp mingw-w64-x86_64-toolchain base-devel"
+  - bash -lc "pacman --noconfirm -S mingw-w64-x86_64-toolchain base-devel"
   - python -m pip install --upgrade pip setuptools wheel tox tox-pyenv pytest pytest-runner
   # - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
   # - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
@@ -129,8 +129,7 @@ deploy: off
 #   - cmd: go get -t ./...
 
 test_script:
-  - "%PYTHON%\\python.exe -m tox -e %TOX_ENV%" 
-  # - "%PYTHON%\\python.exe -m tox"
+  - "%PYTHON%\\python.exe -m tox"
 
 # on successful build
 on_success:
@@ -138,7 +137,8 @@ on_success:
 
 # on build failure
 on_failure:
-  - type ./.tox/%TOX_ENV%/log/%TOX_ENV%-*.log
+  - ECHO "BUILD FAIL"
+  # - type ./.tox/%TOX_ENV%/log/%TOX_ENV%-*.log
 
 # after build failure or success
 on_finish:

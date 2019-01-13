@@ -1,8 +1,14 @@
+# AppVeyor build configuration
+# https://www.appveyor.com/docs/build-configuration
+# https://www.appveyor.com/docs/appveyor-yml/
+
+# version format
 version: 0.25.0.{build}
 image: Visual Studio 2017
 platform:
   - x64
 
+# Define environment variables
 environment:
   global:
     GOOS: windows
@@ -10,7 +16,10 @@ environment:
     GOPATH: C:\projects\pyskycoin\gopath\
     GIT: c:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
-    MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
+    # MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
+    MINGW_W64: C:\msys64\mingw64\bin
+    MSYS_W64: C:\msys64\usr\bin
+    MSYSTEM: MINGW64
     # APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
 
   matrix:
@@ -25,102 +34,188 @@ environment:
   #        - PYTHON: "C:\\Python35-x64"
 #    - PYTHON: "C:\\Python36-x64"
     - PYTHON: C:\Python36-x64
-      PYTHON_VERSION: 3.6
-      TOXENV: py36
-      PYTHON_ARCH: 64
+      PYTHON_VERSION: "3.6"
+      TOXENV: pywin
+      PYTHON_ARCH: "64"
       TEST_MODE: full
 
     - PYTHON: C:\Python37-x64
-      PYTHON_VERSION: 3.7
-      TOXENV: py37
-      PYTHON_ARCH: 64
+      PYTHON_VERSION: "3.7"
+      TOXENV: pywin
+      PYTHON_ARCH: "64"
       TEST_MODE: full
 
-#init:
-#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-#on_finish:
-#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# Do some things at start
+init:
+  # Enable Windows RDP Client Access to Build Worker
+  # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%;%MSYS_W64%;%GOPATH%\bin;%PATH%
 
 stack: go 1.11
 
 # cache to build faster
 cache:
-  - build/tdm64-core.tar.lzma
-  - build/tdm64-binutils.tar.lzma
-  - build/tdm64-mingw64runtime.tar.lzma
-  - build/tdm64-cpp.tar.lzma
+  # - build/tdm64-core.tar.lzma
+  # - build/tdm64-binutils.tar.lzma
+  # - build/tdm64-mingw64runtime.tar.lzma
+  # - build/tdm64-cpp.tar.lzma
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
-  - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
-#  - env
+  - bash -lc "pacman --noconfirm -S bash pacman pacman-mirrors"
+  - bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw64/mingw-w64-x86_64-pkg-config mingw-w64-x86_64-devhelp mingw-w64-x86_64-toolchain base-devel"
+  - python -m pip install --upgrade pip setuptools wheel tox tox-pyenv pytest pytest-runner
+  # - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
+  # - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
   - python --version
   - gcc --version
-  - cmd: git submodule update --init --recursive --remote
+  - swig -version
+  - git submodule update --init --recursive --remote
 #  - cmd: git submodule foreach git checkout develop
-  - cmd: cd gopath/src/github.com/skycoin/skycoin
-  - cmd: git checkout origin/stdevEclipse_t1568_swig_files
+  - cd gopath/src/github.com/skycoin/skycoin
+  - git checkout origin/stdevEclipse_t1568_swig_files
 #  - cmd: git pull origin stdevEclipse_t1568_swig_files
-  - cmd: cd C:\projects\pyskycoin
-  - cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
-  - cmd: 7z x swigwin-3.0.12.zip
-  - ps: >-
-      if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
+  - cd %APPVEYOR_BUILD_FOLDER%
+  # - cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
+  # - cmd: 7z x swigwin-3.0.12.zip
+  # - ps: >-
+  #     if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
 
-          echo "TDM-GCC64 not found on build/, downloading..."
+  #         echo "TDM-GCC64 not found on build/, downloading..."
 
-          md -Force build | Out-Null
-          md -Force C:/tools/tdm64 | Out-Null
+  #         md -Force build | Out-Null
+  #         md -Force C:/tools/tdm64 | Out-Null
 
-          echo "Downloading tdm64-core..."
-          (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-core.tar.lzma", "$pwd/build/tdm64-core.tar.lzma")
+  #         echo "Downloading tdm64-core..."
+  #         (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-core.tar.lzma", "$pwd/build/tdm64-core.tar.lzma")
 
-          echo "Downloading tdm64-binutils..."
-          (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-2.25-tdm64-1.tar.lzma", "$pwd/build/tdm64-binutils.tar.lzma")
+  #         echo "Downloading tdm64-binutils..."
+  #         (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-2.25-tdm64-1.tar.lzma", "$pwd/build/tdm64-binutils.tar.lzma")
 
-          echo "Downloading tdm64-mingw64runtime..."
-          (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%205%20series/mingw64runtime-v4-git20150618-gcc5-tdm64-1.tar.lzma", "$pwd/build/tdm64-mingw64runtime.tar.lzma")
+  #         echo "Downloading tdm64-mingw64runtime..."
+  #         (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%205%20series/mingw64runtime-v4-git20150618-gcc5-tdm64-1.tar.lzma", "$pwd/build/tdm64-mingw64runtime.tar.lzma")
 
-          echo "Downloading tdm64-cpp..."
-          (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-c%2B%2B.tar.lzma", "$pwd/build/tdm64-cpp.tar.lzma")
-      }
-  - cmd: 7z x "%cd%/build/tdm64-core.tar.lzma" -y "-o%cd%/build" >nul
-  - cmd: 7z x "%cd%/build/tdm64-core.tar" -y "-oC:/tools/tdm64" >nul
-  - cmd: 7z x "%cd%/build/tdm64-binutils.tar.lzma" -y "-o%cd%/build" >nul
-  - cmd: 7z x "%cd%/build/tdm64-binutils.tar" -y "-oC:/tools/tdm64" >nul
-  - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar.lzma" -y "-o%cd%/build" >nul
-  - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
-  - cmd: 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
-  - cmd: 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
+  #         echo "Downloading tdm64-cpp..."
+  #         (New-Object Net.WebClient).DownloadFile("https://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/5.1.0-tdm64-1/gcc-5.1.0-tdm64-1-c%2B%2B.tar.lzma", "$pwd/build/tdm64-cpp.tar.lzma")
+  #     }
+  # - cmd: 7z x "%cd%/build/tdm64-core.tar.lzma" -y "-o%cd%/build" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-core.tar" -y "-oC:/tools/tdm64" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-binutils.tar.lzma" -y "-o%cd%/build" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-binutils.tar" -y "-oC:/tools/tdm64" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar.lzma" -y "-o%cd%/build" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-mingw64runtime.tar" -y "-oC:/tools/tdm64" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-cpp.tar.lzma" -y "-o%cd%/build" >nul
+  # - cmd: 7z x "%cd%/build/tdm64-cpp.tar" -y "-oC:/tools/tdm64" >nul
     #- ps: echo "@echo off`n%PYTHON%\\python.exe %*" | Out-File -Encoding ascii "C:/Tools/tdm64/bin/python34.bat"
     #- ps: echo "@echo off`n%c:\projects\pyskycoin\swigwin-3.0.12\swig.exe %*" | Out-File -Encoding ascii "C:\msys64\usr\bin\swig.bat"
     #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
-  - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"
-  - cmd: set PATH=c:\projects\pyskycoin\swigwin-3.0.12;%PYTHON%\\Scripts;%PATH%
+  # - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"
+  # - cmd: set PATH=c:\projects\pyskycoin\swigwin-3.0.12;%PYTHON%\\Scripts;%PATH%
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-  - cmd: swig -version
+  # - cmd: swig -version
   # Download, decompress and copy gimme to system folder
 #  - cmd: curl -fsSL -o gimme.dll https://fix4dll.com/get?file=gimme.dll&md5=9BF09079226324C2C4A8A65A880CFD41
 #  - cmd: 7z x gimme-dll.zip
 #  - cmd: cp gimme.dll C:\Windows\SysWOW64
 
+# Not a C# project, build stuff at the test step instead.
 build: off
 
 deploy: off
 
-before_test:
-  - cmd: cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\
-  - cmd: go get github.com/gz-c/gox
-  - cmd: go get -t ./...
+# before_test:
+#   - cmd: cd C:\projects\pyskycoin\gopath\src\github.com\skycoin\skycoin\
+#   - cmd: go get github.com/gz-c/gox
+#   - cmd: go get -t ./...
 
 test_script:
-  - cmd: cd C:\projects\pyskycoin\
-  - make test-ci
-  # - make build-swig
-  # - python setup.py develop
-#  - mingw32-make build-swig
-#  - mingw32-make develop
-  # - cmd: mingw32-make test
-#  - "%PYTHON%\\python.exe -m tox"
+  - "%PYTHON%\\python.exe -m tox -e %TOX_ENV%" 
+  # - "%PYTHON%\\python.exe -m tox"
+
+# on successful build
+on_success:
+  - ECHO "BUILD VICTORY"
+
+# on build failure
+on_failure:
+  - type ./.tox/${TOXENV}/log/${TOXENV}-*.log
+
+# after build failure or success
+on_finish:
+  # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  # https://www.appveyor.com/docs/environment-variables/
+  # Environment variables that are set by AppVeyor for every build:
+  # APPVEYOR - True if build runs in AppVeyor environment;
+  - ECHO %APPVEYOR%
+  # CI - True if build runs in AppVeyor environment;
+  - ECHO %CI%
+  # APPVEYOR_API_URL - AppVeyor Build Agent API URL;
+  - ECHO %APPVEYOR_API_URL%
+  # APPVEYOR_ACCOUNT_NAME - account name;
+  - ECHO %APPVEYOR_ACCOUNT_NAME%
+  # APPVEYOR_PROJECT_ID - AppVeyor unique project ID;
+  - ECHO %APPVEYOR_PROJECT_ID%
+  # APPVEYOR_PROJECT_NAME - project name;
+  - ECHO %APPVEYOR_PROJECT_NAME%
+  # APPVEYOR_PROJECT_SLUG - project slug (as seen in project details URL);
+  - ECHO %APPVEYOR_PROJECT_SLUG%
+  # APPVEYOR_BUILD_FOLDER - path to clone directory;
+  - ECHO %APPVEYOR_BUILD_FOLDER%
+  # APPVEYOR_BUILD_ID - AppVeyor unique build ID;
+  - ECHO %APPVEYOR_BUILD_ID%
+  # APPVEYOR_BUILD_NUMBER - build number;
+  - ECHO %APPVEYOR_BUILD_NUMBER%
+  # APPVEYOR_BUILD_VERSION - build version;
+  - ECHO %APPVEYOR_BUILD_VERSION%
+  # APPVEYOR_PULL_REQUEST_NUMBER - GitHub Pull Request number;
+  - ECHO %APPVEYOR_PULL_REQUEST_NUMBER%
+  # APPVEYOR_PULL_REQUEST_TITLE - GitHub Pull Request title
+  - ECHO %APPVEYOR_PULL_REQUEST_TITLE%
+  # APPVEYOR_JOB_ID - AppVeyor unique job ID;
+  - ECHO %APPVEYOR_JOB_ID%
+  # APPVEYOR_JOB_NAME - job name;
+  - ECHO %APPVEYOR_JOB_NAME%
+  # APPVEYOR_REPO_PROVIDER - github, bitbucket, kiln, vso or gitlab;
+  - ECHO %APPVEYOR_REPO_PROVIDER%
+  # APPVEYOR_REPO_SCM - git or mercurial;
+  - ECHO %APPVEYOR_REPO_SCM%
+  # APPVEYOR_REPO_NAME - repository name in format owner-name/repo-name;
+  - ECHO %APPVEYOR_REPO_NAME%
+  # APPVEYOR_REPO_BRANCH - build branch. For Pull Request commits it is base branch PR is merging into;
+  - ECHO %APPVEYOR_REPO_BRANCH%
+  # APPVEYOR_REPO_TAG - true if build has started by pushed tag; otherwise false;
+  - ECHO %APPVEYOR_REPO_TAG%
+  # APPVEYOR_REPO_TAG_NAME - contains tag name for builds started by tag; otherwise this variable is undefined;
+  - ECHO %APPVEYOR_REPO_TAG_NAME%
+  # APPVEYOR_REPO_COMMIT - commit ID (SHA);
+  - ECHO %APPVEYOR_REPO_COMMIT%
+  # APPVEYOR_REPO_COMMIT_AUTHOR - commit author’s name;
+  - ECHO %APPVEYOR_REPO_COMMIT_AUTHOR%
+  # APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL - commit author’s email address;
+  - ECHO %APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL%
+  # APPVEYOR_REPO_COMMIT_TIMESTAMP - commit date/time;
+  - ECHO %APPVEYOR_REPO_COMMIT_TIMESTAMP%
+  #
+  # commit message disabled; can cause false failure
+  #
+  # APPVEYOR_REPO_COMMIT_MESSAGE - commit message;
+  #  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE%
+  # APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED - the rest of commit message after line break (if exists);
+  #  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED%
+  # APPVEYOR_SCHEDULED_BUILD - True if the build runs by scheduler;
+  - ECHO %APPVEYOR_SCHEDULED_BUILD%
+  # APPVEYOR_FORCED_BUILD (True or undefined) - builds started by “New build” button or from the same API;
+  - ECHO %APPVEYOR_FORCED_BUILD%
+  # APPVEYOR_RE_BUILD (True or undefined) - build started by “Re-build commit/PR” button of from the same API;
+  - ECHO %APPVEYOR_RE_BUILD%
+  # PLATFORM - platform name set on Build tab of project settings (or through platform parameter in appveyor.yml);
+  - ECHO %PLATFORM%
+  # CONFIGURATION - configuration name set on Build tab of project settings (or through configuration parameter in appveyor.yml);
+  - ECHO %CONFIGURATION%
+
+#---------------------------------#
+#         notifications           #
+#---------------------------------#
+notifications:
+  - provider: Webhook
+    url: https://fathomless-fjord-24024.herokuapp.com/notify

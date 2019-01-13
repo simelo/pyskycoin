@@ -6,8 +6,9 @@ include LICENSE.txt
 
 include Makefile
 include gopath/src/github.com/skycoin/skycoin/Makefile
-recursive-exclude *.a
+#recursive-exclude *.a
 include skycoin.py
+include *.yml
 
 recursive-include . *.s
 recursive-include . *.go

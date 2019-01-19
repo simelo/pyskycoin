@@ -14,13 +14,17 @@ environment:
     GOOS: windows
     GOARCH: amd64
     GOPATH: C:\projects\pyskycoin\gopath\
-    GIT: c:\Program Files\Git\bin
+    GIT: C:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
     # MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
-    MINGW_W64: C:\msys64\mingw64\bin
-    MSYS_W64: C:\msys64\usr\bin
+    #MINGW_W64: C:\msys64\mingw64\bin
+    #MSYS_W64: C:\msys64\usr\bin
     MSYSTEM: MINGW64
-    # APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
+    DISTUTILS_USE_SDK: 1
+    MSSdk: 1
+    APPVEYOR_RDP_PASSWORD: Support0dell0com**1987
+    WIN_SDK_ROOT: C:\Program Files\Microsoft SDKs\Windows
+    WINDOWS_SDK_VERSION: "v7.1"
 
   matrix:
   #- PYTHON: "C:\\Python33"
@@ -62,19 +66,22 @@ cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
 install:
-  - bash -lc "pacman --noconfirm -S bash pacman pacman-mirrors"
-  - bash -lc "pacman --noconfirm -S mingw-w64-x86_64-toolchain base-devel"
-  - python -m pip install --upgrade pip setuptools wheel tox tox-pyenv pytest pytest-runner
   # - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
-  # - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
+  - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
   - python --version
+  - python -c \"import struct; print(struct.calcsize('P') * 8)\"
   - gcc --version
   - swig -version
+  # - bash -lc "pacman --noconfirm -S bash pacman pacman-mirrors"
+  # - bash -lc "pacman --noconfirm -S mingw-w64-x86_64-toolchain base-devel"
+  - python -m pip install --upgrade pip setuptools wheel tox tox-pyenv pytest pytest-runner
+  # - cmd: "%WIN_SDK_ROOT%\\%WINDOWS_SDK_VERSION%\\Setup\\WindowsSdkVer.exe" -q -version:%WINDOWS_SDK_VERSION%
+  # - cmd: "%WIN_SDK_ROOT%\\%WINDOWS_SDK_VERSION%\\Bin\\SetEnv.cmd" /x64 /release
   - git submodule update --init --recursive --remote
-#  - cmd: git submodule foreach git checkout develop
+  # - cmd: git submodule foreach git checkout develop
   - cd gopath/src/github.com/skycoin/skycoin
   - git checkout develop
-#  - cmd: git pull origin stdevEclipse_t1568_swig_files
+  # - cmd: git pull origin stdevEclipse_t1568_swig_files
   - cd %APPVEYOR_BUILD_FOLDER%
   # - cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
   # - cmd: 7z x swigwin-3.0.12.zip
@@ -138,7 +145,7 @@ on_success:
 # on build failure
 on_failure:
   - ECHO "BUILD FAIL"
-  # - type ./.tox/%TOX_ENV%/log/%TOX_ENV%-*.log
+  - type .\.tox\%TOX_ENV%\log\%TOX_ENV%-*.log
 
 # after build failure or success
 on_finish:

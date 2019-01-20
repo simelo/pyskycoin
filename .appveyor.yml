@@ -16,7 +16,7 @@ environment:
     GOPATH: C:\projects\pyskycoin\gopath\
     GIT: C:\Program Files\Git\bin
     APPVEYOR_SAVE_CACHE_ON_ERROR: true
-    # MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
+    MINGW_W64: c:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64
     #MINGW_W64: C:\msys64\mingw64\bin
     #MSYS_W64: C:\msys64\usr\bin
     MSYSTEM: MINGW64
@@ -53,7 +53,7 @@ environment:
 init:
   # Enable Windows RDP Client Access to Build Worker
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-  - set PATH=%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%;%MSYS_W64%;%GOPATH%\bin;%PATH%
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%;%GOPATH%\bin;%PATH%
 
 stack: go 1.11
 
@@ -69,22 +69,22 @@ install:
   # - set PATH=%GIT%;%PYTHON%;%PYTHON%\Scripts;%MINGW_W64%\bin;%PATH%
   - cmd: cp %MINGW_W64%\bin\mingw32-make.exe %MINGW_W64%\bin\make.exe
   - python --version
-  - python -c \"import struct; print(struct.calcsize('P') * 8)\"
+  # - python -c \"import struct; print(struct.calcsize('P') * 8)\"
   - gcc --version
-  - swig -version
+  # - swig -version
   # - bash -lc "pacman --noconfirm -S bash pacman pacman-mirrors"
   # - bash -lc "pacman --noconfirm -S mingw-w64-x86_64-toolchain base-devel"
   - python -m pip install --upgrade pip setuptools wheel tox tox-pyenv pytest pytest-runner
   # - cmd: "%WIN_SDK_ROOT%\\%WINDOWS_SDK_VERSION%\\Setup\\WindowsSdkVer.exe" -q -version:%WINDOWS_SDK_VERSION%
   # - cmd: "%WIN_SDK_ROOT%\\%WINDOWS_SDK_VERSION%\\Bin\\SetEnv.cmd" /x64 /release
   - git submodule update --init --recursive --remote
-  # - cmd: git submodule foreach git checkout develop
+  - git submodule foreach git checkout develop
   - cd gopath/src/github.com/skycoin/skycoin
   - git checkout develop
   # - cmd: git pull origin stdevEclipse_t1568_swig_files
   - cd %APPVEYOR_BUILD_FOLDER%
-  # - cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
-  # - cmd: 7z x swigwin-3.0.12.zip
+  - cmd: curl -fsSL -o swigwin-3.0.12.zip "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.12/swigwin-3.0.12.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.12%2Fswigwin-3.0.12.zip%2Fdownload%3Fuse_mirror%3Dayera&ts=1531774939"
+  - cmd: 7z x swigwin-3.0.12.zip
   # - ps: >-
   #     if (-Not (Test-Path "$pwd/build/tdm64-cpp.tar.lzma")) {
 
@@ -117,9 +117,9 @@ install:
     #- ps: echo "@echo off`n%c:\projects\pyskycoin\swigwin-3.0.12\swig.exe %*" | Out-File -Encoding ascii "C:\msys64\usr\bin\swig.bat"
     #- ps: echo "[build]`ncompiler=mingw32`n[build_ext]`ncompiler=mingw32" | Out-File -Encoding ascii "C:/Python34-x64/Lib/distutils/distutils.cfg"
   # - cmd: "%PYTHON%\\python.exe -m pip install --upgrade setuptools tox wheel pip"
-  # - cmd: set PATH=c:\projects\pyskycoin\swigwin-3.0.12;%PYTHON%\\Scripts;%PATH%
+  - cmd: set PATH=C:\projects\pyskycoin\swigwin-3.0.12;%PATH%
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-  # - cmd: swig -version
+  - cmd: swig -version
   # Download, decompress and copy gimme to system folder
 #  - cmd: curl -fsSL -o gimme.dll https://fix4dll.com/get?file=gimme.dll&md5=9BF09079226324C2C4A8A65A880CFD41
 #  - cmd: 7z x gimme-dll.zip

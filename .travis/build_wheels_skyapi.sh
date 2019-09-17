@@ -27,6 +27,6 @@ done
 
 # Bundle external shared libraries into the wheels
 for whl in /io/lib/skyapi/wheelhouse/*.whl; do
-  auditwheel repair "$whl" -w /io/lib/skyapi/wheelhouse/
+  auditwheel repair "$whl" -w lib/skyapi/wheelhouse/
 done
 

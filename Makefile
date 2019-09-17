@@ -147,8 +147,8 @@ lint: ## Linter to pylint
 	
 clean: #Clean all
 	make -C $(SKYLIBC_DIR) clean-libc
-	$(PYTHON_BIN) -m pip uninstall pyskycoin
-	$(PYTHON_BIN) -m pip uninstall skyapi
+	$(PYTHON_BIN) -m pip uninstall pyskycoin -y
+	$(PYTHON_BIN) -m pip uninstall skyapi -y
 	rm -rfv tests/__pycache__
 	rm -rfv skycoin/__pycache__
 	rm -rfv skycoin/*.pyc

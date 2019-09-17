@@ -28,6 +28,7 @@ SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
 HEADER_FILES = $(shell find $(INCLUDE_DIR) -type f -name "*.h")
 
 PYTHON_CLIENT_DIR = lib/skyapi
+FULL_PYTHON_CLIENT_DIR = $(REPO_ROOT)/lib/skyapi
 
 ifeq ($(shell uname -s),Linux)
 	TEMP_DIR = tmp
@@ -110,11 +111,11 @@ bdist_manylinux_amd64: ## Create 64 bits multilinux binary wheel distribution ar
 	docker run --rm -t -v $(REPO_ROOT):/io quay.io/pypa/manylinux1_x86_64 /io/.travis/build_wheels.sh
 	ls wheelhouse/
 	mkdir -p $(DIST_DIR)
-	cp -v wheelhouse/*pyskycoin* $(DIST_DIR)
-	#mkdir -p $(PYTHON_CLIENT_DIR)/wheelhouse
-	#docker run --rm -t -v $(REPO_ROOT):/io quay.io/pypa/manylinux1_x86_64 /io/.travis/build_wheels_skyapi.sh
+	cp -v wheelhouse/* $(DIST_DIR)
+	mkdir -p $(PYTHON_CLIENT_DIR)/wheelhouse
+	docker run --rm -t -v $(FULL_PYTHON_CLIENT_DIR):/io quay.io/pypa/manylinux1_x86_64 /io/.travis/build_wheels.sh
 	mkdir -p $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
-	cp -v wheelhouse/*skyapi* $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
+	cp -v $(PYTHON_CLIENT_DIR)/wheelhouse/* $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
 	ls $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
 
 
@@ -125,10 +126,10 @@ bdist_manylinux_i686: ## Create 32 bits multilinux binary wheel distribution arc
 	mkdir -p $(DIST_DIR)
 	cp -v wheelhouse/* $(DIST_DIR)
 	mkdir -p $(PYTHON_CLIENT_DIR)/wheelhouse
-	docker run --rm -t -v $(REPO_ROOT):/io quay.io/pypa/manylinux1_i686 linux32 /io/.travis/build_wheels_skyapi.sh
+	docker run --rm -t -v $(FULL_PYTHON_CLIENT_DIR):/io quay.io/pypa/manylinux1_i686 linux32 /io/.travis/build_wheels.sh
 	mkdir -p $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
 	cp -v $(PYTHON_CLIENT_DIR)/wheelhouse/* $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
-	ls $(PYTHON_CLIENT_DIR)/wheelhouse/
+	ls $(PYTHON_CLIENT_DIR)/$(DIST_DIR)
 
 dist: sdist bdist_wheel bdist_manylinux_amd64 ## Create distribution archives
 

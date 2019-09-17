@@ -19,13 +19,12 @@ source /etc/profile
 go version
 go env
 
-ls -la /io/lib/skyapi
+ls -la
+
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
   "${PYBIN}/pip" install -r /io/requirements.dev.txt
-  "${PYBIN}/pip" install -r /io/lib/skyapi/requirements.txt
   "${PYBIN}/pip" wheel /io/ -w wheelhouse/
-  "${PYBIN}/pip" wheel /io/lib/skyapi -w wheelhouse/
 done
 
 # Bundle external shared libraries into the wheels

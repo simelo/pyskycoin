@@ -21,3 +21,6 @@ for whl in wheelhouse/*.whl; do
   auditwheel repair "$whl" -w /io/wheelhouse/
 done
 
+ls -la  wheelhouse
+cp -v wheelhouse/*skyapi* /io/wheelhouse 
+ls -la /io/wheelhouse

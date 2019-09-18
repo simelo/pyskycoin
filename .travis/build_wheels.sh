@@ -20,7 +20,7 @@ go version
 go env
 
 ls -la
-
+mkdir -p wheelhouse
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
   "${PYBIN}/pip" install -r /io/requirements.dev.txt

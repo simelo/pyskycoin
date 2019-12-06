@@ -10,7 +10,7 @@ PYTHON_BIN   ?= python$(PYTHON)
 MKFILE_PATH   = $(abspath $(lastword $(MAKEFILE_LIST)))
 REPO_ROOT     = $(dir $(MKFILE_PATH))
 GOPATH_DIR    = gopath
-SKYLIBC_DIR  ?= $(GOPATH_DIR)/src/github.com/skycoin/libskycoin
+SKYLIBC_DIR  ?= $(GOPATH_DIR)/src/github.com/fibercrypto/libskycoin
 SKYCOIN_DIR  ?= $(SKYLIBC_DIR)/vendor/github.com/skycoin/skycoin
 SKYBUILD_DIR  = $(SKYLIBC_DIR)/build
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
@@ -69,7 +69,7 @@ build-swig: ## Generate Python C module from SWIG interfaces
 	rm -fv skycoin/skycoin.py
 	rm -f swig/pyskycoin_wrap.c
 	rm -f swig/include/swig.h
-	swig -python -w501,505,401,302,509,451 -Iswig/include -I$(INCLUDE_DIR) -outdir ./skycoin/ -o swig/pyskycoin_wrap.c $(LIBSWIG_DIR)/pyskycoin.i
+	swig -python -py3 -w501,505,401,302,509,451 -Iswig/include -I$(INCLUDE_DIR) -outdir ./skycoin/ -o swig/pyskycoin_wrap.c $(LIBSWIG_DIR)/pyskycoin.i
 
 develop: ## Install PySkycoin for development
 	$(PYTHON_BIN) setup.py develop
@@ -83,7 +83,7 @@ build: build-libc-swig ## Build PySkycoin Python package
 
 test-ci: build-libc build-swig develop ## Run tests on (Travis) CI build
 	tox
-	(cd $(PYTHON_CLIENT_DIR) && tox)
+	# (cd $(PYTHON_CLIENT_DIR) && tox)
 
 test-skyapi: build-libc build-swig develop ## Run project test suite by skyapi
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py test)
@@ -138,12 +138,12 @@ format: ## Format code that autopep8
 
 lint: ## Linter to pylint
 	pylint -E tests/*.py
-	# yamllint -d relaxed .travis.yml
+	yamllint -d relaxed .travis.yml
 	
 clean: #Clean all
 	make -C $(SKYLIBC_DIR) clean-libc
-	$(PYTHON_BIN) -m pip uninstall pyskycoin
-	$(PYTHON_BIN) -m pip uninstall skyapi
+	$(PYTHON_BIN) -m pip uninstall -y pyskycoin
+	$(PYTHON_BIN) -m pip uninstall -y skyapi
 	rm -rfv tests/__pycache__
 	rm -rfv skycoin/__pycache__
 	rm -rfv skycoin/*.pyc
@@ -160,6 +160,9 @@ clean: #Clean all
 	rm -rfv lib/skyapi/skyapi/api/__pycache__
 	rm -rfv lib/skyapi/test/__pycache__
 	rm -rfv lib/skyapi/test/*.pyc
+	rm -rfv swig/pyskycoin_wrap.c
+	rm -rfv skycoin/skycoin.py
+	$(PYTHON_BIN) setup.py clean
 	
 
 help: ## List available commands

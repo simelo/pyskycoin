@@ -3,7 +3,7 @@ jobs:
   manylinux64:
     docker:
       - image: docker:18.06.0-ce-git
-    working_directory: $GOPATH/src/github.com/skycoin/pyskycoin
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
     steps:
       - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
       - checkout
@@ -13,7 +13,7 @@ jobs:
   manylinux32:
     docker:
       - image: docker:18.06.0-ce-git
-    working_directory: $GOPATH/src/github.com/skycoin/pyskycoin
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
     steps:
       - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
       - checkout
@@ -23,17 +23,17 @@ jobs:
   manylinuxarmv7:
     docker:
       - image: docker:18.06.0-ce-git
-    working_directory: $GOPATH/src/github.com/skycoin/pyskycoin
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
     steps:
       - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
       - checkout
       - setup_remote_docker:
           version: 18.06.0-ce
-      - run: docker build  --file $GOPATH/src/github.com/skycoin/pyskycoin/docker/images/deploy/Dockerfile-arm  $GOPATH/src/github.com/skycoin/pyskycoin -t skydev-test
+      - run: docker build  --file $GOPATH/src/github.com/fibercrypto/pyskycoin/docker/images/deploy/Dockerfile-arm  $GOPATH/src/github.com/fibercrypto/pyskycoin -t skydev-test
 
     docker:
       - image: docker:18.06.0-ce-git
-    working_directory: $GOPATH/src/github.com/skycoin/pyskycoin
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
     steps:
       - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
       - checkout

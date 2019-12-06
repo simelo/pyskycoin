@@ -13,9 +13,9 @@ LABEL "org.label-schema.name"="skycoindev-python" \
       "org.label-schema.url"="skycoin.net" \
       "org.label-schema.version"="0.24.4" \
       "org.label-schema.build-date"=$BDATE \
-      "org.label-schema.vcs-url"="https://github.com/skycoin/pyskycoin.git" \
+      "org.label-schema.vcs-url"="https://github.com/fibercrypto/pyskycoin.git" \
       "org.label-schema.vcs-ref"=$SCOMMIT \
-      "org.label-schema.usage"="https://github.com/skycoin/pyskycoin/blob/"$SCOMMIT"/docker/images/dev/README.md" \
+      "org.label-schema.usage"="https://github.com/fibercrypto/pyskycoin/blob/"$SCOMMIT"/docker/images/dev/README.md" \
       "org.label-schema.schema-version"="1.0" \
       "org.label-schema.docker.cmd"="mkdir src; docker run --rm -v ${PWD}/src:/usr/local/src skycoin/skycoindev-python:develop git clone https://github.com/simelo/pyskycoin.git"
 
@@ -62,7 +62,7 @@ RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc \
     && echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc \
     && echo 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc \
     && bash \
-    && git clone https://github.com/skycoin/pyskycoin.git $PROJECT_ROOT/pyskycoin \
+    && git clone https://github.com/fibercrypto/pyskycoin.git $PROJECT_ROOT/pyskycoin \
     && cd $PROJECT_ROOT/pyskycoin \
     && git checkout v0.25.0 \
     && git submodule update --init --recursive \

@@ -76,7 +76,7 @@ class skycoin_build_ext(build_ext, object):
             super(skycoin_build_ext, self).build_extension(ext)
 
 
-skypath = path.join(*("gopath/src/github.com/skycoin/libskycoin".split("/")))
+skypath = path.join(*("gopath/src/github.com/fibercrypto/libskycoin".split("/")))
 lib_path = path.join(skypath, "build", "libskycoin")
 library_file = path.join(lib_path, "libskycoin.a")
 extra_link_args = []
@@ -90,8 +90,8 @@ setup(
     description="Skycoin Python Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/skycoin/pyskycoin",
-    author="Ratmil Torres",  # Optional
+    url="https://github.com/fibercrypto/pyskycoin",
+    author="Maykel Arias",  # Optional
     author_email="skycoin@simelo.tech",
     setup_requires=["pytest-runner"],
     tests_require=["pytest", "urllib3", "certifi"],
@@ -102,8 +102,6 @@ setup(
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",

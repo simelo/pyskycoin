@@ -8,7 +8,7 @@ include requirements.txt
 include requirements.dev.txt
 
 include Makefile
-include gopath/src/github.com/skycoin/libskycoin/Makefile
+include gopath/src/github.com/fibercrypto/libskycoin/Makefile
 global-exclude *.a
 include skycoin.py
 
@@ -16,11 +16,11 @@ global-include *.s
 global-include *.go
 global-include *.i
 graft swig/include
-graft gopath/src/github.com/skycoin/libskycoin/include
+graft gopath/src/github.com/fibercrypto/libskycoin/include
 
 prune docker
 graft swig/include *
-graft gopath/src/github.com/skycoin/libskycoin/include
+graft gopath/src/github.com/fibercrypto/libskycoin/include
 
 global-exclude __pycache__
 global-exclude .github

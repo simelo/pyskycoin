@@ -1,6 +1,6 @@
 FROM balenalib/armv7hf-debian-python
 
-ENV REPO_ROOT=$GOPATH/src/github.com/skycoin/pyskycoin/
+ENV REPO_ROOT=$GOPATH/src/github.com/fibercrypto/pyskycoin/
 ADD . ${REPO_ROOT}
 ENV PIP='python3 -m pip'
 

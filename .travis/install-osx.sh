@@ -5,7 +5,8 @@ set -ev
 # Install some dependencies
 brew update;
 brew outdated pyenv || brew upgrade pyenv;
-brew install pyenv-virtualenv
+brew install pyenv-virtualenv;
+brew install readline xz;
 echo 'Creating swig@3.0.12 formula';
 cd "$(brew --repository)/Library/Taps/homebrew/homebrew-core";
 git show 42d31bba7772fb01f9ba442d9ee98b33a6e7a055:Formula/swig.rb | grep -v 'fails_with' > Formula/swig.rb;

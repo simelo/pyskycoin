@@ -1,6 +1,6 @@
 # PySkycoin
 
-[![Build Status](https://travis-ci.com/skycoin/pyskycoin.svg?branch=develop)](https://travis-ci.com/skycoin/pyskycoin)
+[![Build Status](https://travis-ci.com/fibercrypto/pyskycoin.svg?branch=develop)](https://travis-ci.com/fibercrypto/pyskycoin)
 
 Python extension for Skycoin API.
 A Python extension generated with SWIG to access Skycoin API from Python.
@@ -33,7 +33,7 @@ A Python extension generated with SWIG to access Skycoin API from Python.
 
 ## Installation
 
-Download the repository from http://github.com/simelo/pyskycoin.git. 
+Download the repository from http://github.com/fibercrypto/pyskycoin.git. 
 Execute (`python setup.py install`) to install the library. Although executing (python setup.py develop) is a better choice for making changes to the library. However, when using tox these commands are not required at all because calling tox will make any necessary installation and execute the tests.
 
 ## Usage
@@ -202,18 +202,18 @@ details.
 The project has two branches: `master` and `develop`.
 
 - `develop` is the default branch and will always have the latest code.
-  The submodule at `gopath/src/github.com/skycoin/skycoin` has to be
+  The submodule at `gopath/src/github.com/fibercrypto/libskycoin` has to be
   in sync with `skycoin/skycoin` `develop` branch.
 - `master` will always be equal to the current stable release on the website, and should correspond with the latest release tag.
-  The submodule at `gopath/src/github.com/skycoin/skycoin` has to be
+  The submodule at `gopath/src/github.com/fibercrypto/libskycoin` has to be
   in sync with `skycoin/skycoin` `master` branch.
 
 Separate stable development branches will be created to work on releases for supporting the
 most recent stable version of Skycoin. The name of these branches should be the Skycoin
 major and minor version numbers followed by `dev` suffix e.g. `0.25dev`.
 These branches may be forked out of either `master` or `develop` branches, and 
-the submodule at `gopath/src/github.com/skycoin/skycoin` has to be
-in sync with the corresponding tag of `skycoin/skycoin` official repository.
+the submodule at `gopath/src/github.com/fibercrypto/libskycoin` has to be
+in sync with the corresponding tag of `fibercrypto/libskycoin` official repository.
 
 Stable development branches are created most of the time for the following reasons:
 
@@ -234,7 +234,7 @@ $ make test
 
 0. If the `master` branch has commits that are not in `develop` (e.g. due to a hotfix applied to `master`), merge `master` into `develop` (and fix any build or test failures)
 0. Switch to a new release branch named `release-X.Y.Z` for preparing the release.
-0. Ensure that the submodule at `gopath/src/github.com/skycoin/skycoin` is in sync with respect to the corresponding tag in https://github.com/skycoin/skycoin repository.
+0. Ensure that the submodule at `gopath/src/github.com/fibercrypto/libskycoin` is in sync with respect to the corresponding tag in https://github.com/fibercrypto/libskycoin repository.
 0. Update `__version__` in `skycoin/__init__.py`
 0. Run `make build` to make sure that the code base is up to date
 0. Update `CHANGELOG.md`: move the "unreleased" changes to the version and add the date.
@@ -285,7 +285,7 @@ sub   rsa4096 2019-01-17 [E] [expires: 2024-01-16]
 
 Follow the [Tor Project's instructions for verifying signatures](https://www.torproject.org/docs/verifying-signatures.html.en).
 
-Releases and their signatures can be found on the [releases page](https://github.com/skycoin/pyskycoin/releases).
+Releases and their signatures can be found on the [releases page](https://github.com/fibercrypto/pyskycoin/releases).
 
 Instructions for generating a PGP key, publishing it, signing the tags and binaries:
 https://gist.github.com/gz-c/de3f9c43343b2f1a27c640fe529b067c

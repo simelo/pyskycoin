@@ -76,7 +76,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -103,6 +103,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | addressCount response object |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **address_uxouts**
@@ -121,7 +127,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 address = 'address_example' # str | address to filter by
 
@@ -151,6 +157,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return address uxouts |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **api_v1_rawtx_get**
@@ -167,7 +179,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -193,6 +205,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response is araw transaction by id |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **api_v2_metrics_get**
@@ -209,7 +226,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -235,6 +252,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metrics |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **balance_get**
@@ -251,7 +273,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 addrs = 'addrs_example' # str | command separated list of addresses
 
@@ -282,6 +304,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the balance of one or more addresses |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **balance_post**
@@ -304,7 +332,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 addrs = 'addrs_example' # str | command separated list of addresses
 
@@ -335,6 +365,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the balance of one or more addresses |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **block**
@@ -351,7 +387,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 hash = 'hash_example' # str | get block by hash (optional)
 seq = 56 # int | get block by sequence number (optional)
@@ -384,6 +420,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return block Array |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **blockchain_metadata**
@@ -400,7 +442,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -427,6 +469,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns the blockchain metadata. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **blockchain_progress**
@@ -443,7 +491,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -470,6 +518,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns the blockchain sync progress |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **blocks**
@@ -486,7 +540,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 start = 56 # int | start seq (optional)
 end = 56 # int | end seq (optional)
@@ -521,6 +575,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Get blocks in specific range |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **coin_supply**
@@ -539,7 +599,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -565,6 +625,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | CoinSupply records the coin supply info. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **csrf**
@@ -581,7 +647,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -608,6 +674,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return a csrf Token. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **data_delete**
@@ -624,7 +696,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 type = 'type_example' # str | storage type. (optional)
 key = 'key_example' # str | key of the specific value to get. (optional)
@@ -655,6 +727,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns empty json |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **data_get**
@@ -671,7 +749,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 type = 'type_example' # str | storage type. (optional)
 key = 'key_example' # str | key of the specific value to get. (optional)
@@ -703,6 +781,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return multiKey |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **data_post**
@@ -719,7 +803,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 type = 'type_example' # str | storage type. (optional)
 key = 'key_example' # str | key of the specific value to get. (optional)
@@ -752,6 +836,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns empty json |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **default_connections**
@@ -768,7 +858,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -795,6 +885,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return an list of default connections. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **health**
@@ -811,7 +907,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -838,6 +934,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns node health data. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **last_blocks**
@@ -856,7 +958,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 num = 56 # int | Num of blockss
 
@@ -886,6 +988,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the most recent N blocks on the blockchain |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connection**
@@ -902,7 +1010,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 addr = 'addr_example' # str | Address port
 
@@ -933,6 +1041,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return a connection struct |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connections**
@@ -955,7 +1069,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 states = 'states_example' # str | Connection status. (optional)
 direction = 'direction_example' # str | Direction of the connection. (optional)
@@ -988,6 +1104,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return networks connections |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connections_disconnect**
@@ -1012,7 +1134,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Address id.
 
@@ -1041,6 +1165,12 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connections_exchange**
@@ -1059,7 +1189,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -1085,6 +1215,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return a list of all connections found through peer exchange. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connections_trust**
@@ -1101,7 +1237,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -1128,6 +1264,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return a list of trusted connections. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **outputs_get**
@@ -1144,7 +1286,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 address = ['address_example'] # list[str] |  (optional)
 hash = ['hash_example'] # list[str] |  (optional)
@@ -1177,6 +1319,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | UnspentOutputsSummary records unspent outputs in different status. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **outputs_post**
@@ -1199,7 +1347,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 address = 'address_example' # str |  (optional)
 hash = 'hash_example' # str |  (optional)
@@ -1232,6 +1382,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | UnspentOutputsSummary records unspent outputs in different status. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pending_txs**
@@ -1248,7 +1404,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -1274,6 +1430,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Transaction inputs include the owner address, coins, hours and calculated hours. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **resend_unconfirmed_txns**
@@ -1298,7 +1460,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 
 try:
@@ -1324,6 +1488,12 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application-json, application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK, Broadcasts all unconfirmed transactions from the unconfirmed transaction pool |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **richlist**
@@ -1340,7 +1510,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 include_distribution = True # bool | include distribution addresses or not, default value false (optional)
 n = 'n_example' # str | include distribution addresses or not, default value false (optional)
@@ -1373,6 +1543,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Represent richlist response |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction**
@@ -1391,7 +1567,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 txid = 'txid_example' # str | transaction Id
 
@@ -1421,10 +1597,16 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns a transaction identified by its txid hash. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction_inject**
-> str transaction_inject(rawtx)
+> str transaction_inject(rawtx, no_broadcast=no_broadcast)
 
 Broadcast a hex-encoded, serialized transaction to the network.
 
@@ -1443,13 +1625,16 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 rawtx = 'rawtx_example' # str | hex-encoded serialized transaction string.
+no_broadcast = True # bool | Disable the network broadcast (optional)
 
 try:
     # Broadcast a hex-encoded, serialized transaction to the network.
-    api_response = api_instance.transaction_inject(rawtx)
+    api_response = api_instance.transaction_inject(rawtx, no_broadcast=no_broadcast)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->transaction_inject: %s\n" % e)
@@ -1460,6 +1645,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **rawtx** | **str**| hex-encoded serialized transaction string. | 
+ **no_broadcast** | **bool**| Disable the network broadcast | [optional] 
 
 ### Return type
 
@@ -1473,6 +1659,12 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, application/xml
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Broadcasts a hex-encoded, serialized transaction to the network |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1496,7 +1688,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 transaction_v2_params_address = skyapi.TransactionV2ParamsAddress() # TransactionV2ParamsAddress |  (optional)
 
@@ -1526,6 +1720,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response is a transaction |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction_post_unspent**
@@ -1548,7 +1748,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 transaction_v2_params_unspent = skyapi.TransactionV2ParamsUnspent() # TransactionV2ParamsUnspent | Unspent parameters
 
@@ -1578,6 +1780,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response is a transaction |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction_raw**
@@ -1594,7 +1802,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 txid = 'txid_example' # str | Transaction id hash (optional)
 
@@ -1625,6 +1833,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the hex-encoded byte serialization of a transaction |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction_verify**
@@ -1649,7 +1863,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 transaction_verify_request = skyapi.TransactionVerifyRequest() # TransactionVerifyRequest | 
 
@@ -1679,6 +1895,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Responses ok |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transactions_get**
@@ -1695,7 +1917,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 addrs = 'addrs_example' # str | command separated list of addresses (optional)
 confirmed = 'confirmed_example' # str | Whether the transactions should be confirmed [optional, must be 0 or 1; if not provided, returns all] (optional)
@@ -1728,6 +1950,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns transactions that match the filters. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transactions_post**
@@ -1750,7 +1978,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 addrs = 'addrs_example' # str | command separated list of addresses (optional)
 confirmed = 'confirmed_example' # str | Whether the transactions should be confirmed [optional, must be 0 or 1; if not provided, returns all] (optional)
@@ -1783,6 +2013,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns transactions that match the filters. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **uxout**
@@ -1799,7 +2035,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 uxid = 'uxid_example' # str | uxid to filter by (optional)
 
@@ -1830,6 +2066,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response for endpoint /api/v1/uxout |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_address**
@@ -1852,9 +2094,11 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
-address = None # object | Address id.
+address = skyapi.Address() # Address | Address id.
 
 try:
     # Verifies a Skycoin address.
@@ -1868,7 +2112,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **address** | [**object**](.md)| Address id. | 
+ **address** | [**Address**](.md)| Address id. | 
 
 ### Return type
 
@@ -1882,6 +2126,12 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** |  |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1901,7 +2151,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -1927,6 +2177,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | BuildInfo represents the build info |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet**
@@ -1943,7 +2199,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 id = 'id_example' # str | tags to filter by
 
@@ -1974,6 +2230,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response for endpoint /api/v1/wallet |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_balance**
@@ -1990,7 +2252,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 id = 'id_example' # str | tags to filter by
 
@@ -2021,14 +2283,20 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the wallets balance |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_create**
-> object wallet_create(seed, label, scan=scan, encrypt=encrypt, password=password)
+> object wallet_create(type, seed, label, seed_passphrase=seed_passphrase, bip44_coin=bip44_coin, xpub=xpub, scan=scan, encrypt=encrypt, password=password)
 
 
 
-Loads wallet from seed, will scan ahead N address and load addresses till the last one that have coins.
+Create a wallet
 
 ### Example
 
@@ -2045,16 +2313,22 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
+type = 'type_example' # str | wallet seed passphrase [optional, bip44 type wallet only]
 seed = 'seed_example' # str | Wallet seed.
 label = 'label_example' # str | Wallet label.
+seed_passphrase = 'seed_passphrase_example' # str | wallet seed passphrase [optional, bip44 type wallet only] (optional)
+bip44_coin = 'bip44_coin_example' # str | BIP44 coin type [optional, defaults to 8000 (skycoin's coin type), only valid if type is \"bip44\"] (optional)
+xpub = 'xpub_example' # str | xpub key [required for xpub wallets] (optional)
 scan = 56 # int | The number of addresses to scan ahead for balances. (optional)
 encrypt = True # bool | Encrypt wallet. (optional)
 password = 'password_example' # str | Wallet Password (optional)
 
 try:
-    api_response = api_instance.wallet_create(seed, label, scan=scan, encrypt=encrypt, password=password)
+    api_response = api_instance.wallet_create(type, seed, label, seed_passphrase=seed_passphrase, bip44_coin=bip44_coin, xpub=xpub, scan=scan, encrypt=encrypt, password=password)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->wallet_create: %s\n" % e)
@@ -2064,8 +2338,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **type** | **str**| wallet seed passphrase [optional, bip44 type wallet only] | 
  **seed** | **str**| Wallet seed. | 
  **label** | **str**| Wallet label. | 
+ **seed_passphrase** | **str**| wallet seed passphrase [optional, bip44 type wallet only] | [optional] 
+ **bip44_coin** | **str**| BIP44 coin type [optional, defaults to 8000 (skycoin&#39;s coin type), only valid if type is \&quot;bip44\&quot;] | [optional] 
+ **xpub** | **str**| xpub key [required for xpub wallets] | [optional] 
  **scan** | **int**| The number of addresses to scan ahead for balances. | [optional] 
  **encrypt** | **bool**| Encrypt wallet. | [optional] 
  **password** | **str**| Wallet Password | [optional] 
@@ -2082,6 +2360,12 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response for endpoint /api/v1/wallet |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2105,7 +2389,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet id.
 password = 'password_example' # str | Wallet password.
@@ -2138,6 +2424,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint decrypts wallets. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_encrypt**
@@ -2160,7 +2452,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet id.
 password = 'password_example' # str | Wallet password.
@@ -2193,6 +2487,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint encrypt wallets. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_folder**
@@ -2211,7 +2511,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 addr = 'addr_example' # str | Address port
 
@@ -2241,6 +2541,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return the wallet directory path |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_new_address**
@@ -2265,7 +2571,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet Id
 num = 'num_example' # str | The number you want to generate (optional)
@@ -2299,6 +2607,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint generate new addresses |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_new_seed**
@@ -2317,7 +2631,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 entropy = 'entropy_example' # str | Entropy bitSize. (optional)
 
@@ -2347,12 +2661,20 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Generates wallet seed |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_recover**
-> object wallet_recover(id, seed, password=password)
+> object wallet_recover(id, seed, seed_passphrase=seed_passphrase, password=password)
 
 Recovers an encrypted wallet by providing the seed. The first address will be generated from seed and compared to the first address of the specified wallet. If they match, the wallet will be regenerated with an optional password. If the wallet is not encrypted, an error is returned.
+
+Recovers an encrypted wallet by providing the wallet seed and optional seed passphrase
 
 ### Example
 
@@ -2369,15 +2691,18 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet id.
 seed = 'seed_example' # str | Wallet seed.
+seed_passphrase = 'seed_passphrase_example' # str | Wallet seed-passphrase. (optional)
 password = 'password_example' # str | Wallet password. (optional)
 
 try:
     # Recovers an encrypted wallet by providing the seed. The first address will be generated from seed and compared to the first address of the specified wallet. If they match, the wallet will be regenerated with an optional password. If the wallet is not encrypted, an error is returned.
-    api_response = api_instance.wallet_recover(id, seed, password=password)
+    api_response = api_instance.wallet_recover(id, seed, seed_passphrase=seed_passphrase, password=password)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->wallet_recover: %s\n" % e)
@@ -2389,6 +2714,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Wallet id. | 
  **seed** | **str**| Wallet seed. | 
+ **seed_passphrase** | **str**| Wallet seed-passphrase. | [optional] 
  **password** | **str**| Wallet password. | [optional] 
 
 ### Return type
@@ -2403,6 +2729,12 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint recover wallets. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2426,7 +2758,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet Id.
 password = 'password_example' # str | Wallet password.
@@ -2459,6 +2793,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint Returns seed of wallet of given id |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_seed_verify**
@@ -2481,7 +2821,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 seed = 'seed_example' # str | Seed to be verified. (optional)
 
@@ -2512,6 +2854,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Verifies a wallet seed. |  -  |
+**422** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_transaction**
@@ -2534,7 +2883,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 wallet_transaction_request = skyapi.WalletTransactionRequest() # WalletTransactionRequest | 
 
@@ -2565,6 +2916,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns blocks between a start and end point. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_transaction_sign**
@@ -2587,7 +2944,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 wallet_transaction_sign_request = skyapi.WalletTransactionSignRequest() # WalletTransactionSignRequest | 
 
@@ -2618,6 +2977,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Signs an unsigned transaction, returning the transaction with updated signatures and the encoded, serialized transaction. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_transactions**
@@ -2634,7 +2999,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 id = 'id_example' # str | Wallet Id.
 
@@ -2664,6 +3029,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns all unconfirmed transactions for all addresses in a given wallet. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_unload**
@@ -2686,7 +3057,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet Id.
 
@@ -2716,6 +3089,12 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns nothing. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_update**
@@ -2738,7 +3117,9 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
-# create an instance of the API class
+# Defining host is optional and default to http://127.0.0.1:6420
+configuration.host = "http://127.0.0.1:6420"
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 id = 'id_example' # str | Wallet Id.
 label = 'label_example' # str | The label the wallet will be updated to.
@@ -2771,6 +3152,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint Returns the label the wallet will be updated to . |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallets**
@@ -2789,7 +3176,7 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
+# Create an instance of the API class
 api_instance = skyapi.DefaultApi()
 
 try:
@@ -2814,6 +3201,12 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return all loaded wallets |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

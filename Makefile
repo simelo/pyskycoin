@@ -83,7 +83,7 @@ build: build-libc-swig ## Build PySkycoin Python package
 
 test-ci: build-libc build-swig develop ## Run tests on (Travis) CI build
 	tox
-	# (cd $(PYTHON_CLIENT_DIR) && tox)
+	(cd $(PYTHON_CLIENT_DIR) && tox)
 
 test-skyapi: build-libc build-swig develop ## Run project test suite by skyapi
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py test)

@@ -10,7 +10,8 @@ include requirements.dev.txt
 include Makefile
 include gopath/src/github.com/fibercrypto/libskycoin/Makefile
 global-exclude *.a
-include skycoin.py
+global-exclude skycoin.py
+prune tests
 
 global-include *.s
 global-include *.go

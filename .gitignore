@@ -29,6 +29,8 @@ tests/mytest.py
 # Temp files
 *.swp
 *.swo
+skycoin.py
+swig/pyskycoin_wrap.c
 
 # IDES
 .idea/

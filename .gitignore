@@ -38,6 +38,8 @@ lib/swig/.cache
 # Temp files
 *.swp
 *.swo
+skycoin.py
+swig/pyskycoin_wrap.c
 
 # IDES
 .idea/
@@ -46,3 +48,8 @@ lib/swig/.cache
 # SWIG
 *.kbk
 
+swig/pyskycoin_wrap.c
+.directory
+core*
+qemu_*
+venv

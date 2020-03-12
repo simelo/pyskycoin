@@ -6,17 +6,20 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**address_count**](DefaultApi.md#address_count) | **GET** /api/v1/addresscount | Returns the total number of unique address that have coins.
 [**address_uxouts**](DefaultApi.md#address_uxouts) | **GET** /api/v1/address_uxouts | 
+[**api_v1_rawtx_get**](DefaultApi.md#api_v1_rawtx_get) | **GET** /api/v1/rawtx | 
+[**api_v2_metrics_get**](DefaultApi.md#api_v2_metrics_get) | **GET** /api/v2/metrics | 
 [**balance_get**](DefaultApi.md#balance_get) | **GET** /api/v1/balance | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 [**balance_post**](DefaultApi.md#balance_post) | **POST** /api/v1/balance | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
-[**block**](DefaultApi.md#block) | **GET** /api/v1/block | 
+[**block**](DefaultApi.md#block) | **GET** /api/v1/block | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 [**blockchain_metadata**](DefaultApi.md#blockchain_metadata) | **GET** /api/v1/blockchain/metadata | Returns the blockchain metadata.
 [**blockchain_progress**](DefaultApi.md#blockchain_progress) | **GET** /api/v1/blockchain/progress | Returns the blockchain sync progress.
-[**blocks_get**](DefaultApi.md#blocks_get) | **GET** /api/v1/blocks | blocksHandler returns blocks between a start and end point,
-[**blocks_post**](DefaultApi.md#blocks_post) | **POST** /api/v1/blocks | blocksHandler returns blocks between a start and end point,
+[**blocks**](DefaultApi.md#blocks) | **GET** /api/v1/blocks | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 [**coin_supply**](DefaultApi.md#coin_supply) | **GET** /api/v1/coinSupply | 
 [**csrf**](DefaultApi.md#csrf) | **GET** /api/v1/csrf | Creates a new CSRF token. Previous CSRF tokens are invalidated by this call.
+[**data_delete**](DefaultApi.md#data_delete) | **DELETE** /api/v2/data | 
+[**data_get**](DefaultApi.md#data_get) | **GET** /api/v2/data | 
+[**data_post**](DefaultApi.md#data_post) | **POST** /api/v2/data | 
 [**default_connections**](DefaultApi.md#default_connections) | **GET** /api/v1/network/defaultConnections | defaultConnectionsHandler returns the list of default hardcoded bootstrap addresses.\\n They are not necessarily connected to.
-[**explorer_address**](DefaultApi.md#explorer_address) | **GET** /api/v1/explorer/address | 
 [**health**](DefaultApi.md#health) | **GET** /api/v1/health | Returns node health data.
 [**last_blocks**](DefaultApi.md#last_blocks) | **GET** /api/v1/last_blocks | 
 [**network_connection**](DefaultApi.md#network_connection) | **GET** /api/v1/network/connection | This endpoint returns a specific connection.
@@ -30,7 +33,9 @@ Method | HTTP request | Description
 [**resend_unconfirmed_txns**](DefaultApi.md#resend_unconfirmed_txns) | **POST** /api/v1/resendUnconfirmedTxns | 
 [**richlist**](DefaultApi.md#richlist) | **GET** /api/v1/richlist | Returns the top skycoin holders.
 [**transaction**](DefaultApi.md#transaction) | **GET** /api/v1/transaction | 
-[**transaction_inject**](DefaultApi.md#transaction_inject) | **POST** /api/v2/transaction/inject | Broadcast a hex-encoded, serialized transaction to the network.
+[**transaction_inject**](DefaultApi.md#transaction_inject) | **POST** /api/v1/injectTransaction | Broadcast a hex-encoded, serialized transaction to the network.
+[**transaction_post**](DefaultApi.md#transaction_post) | **POST** /api/v2/transaction | 
+[**transaction_post_unspent**](DefaultApi.md#transaction_post_unspent) | **POST** /api/v2/transaction/unspent | 
 [**transaction_raw**](DefaultApi.md#transaction_raw) | **GET** /api/v2/transaction/raw | Returns the hex-encoded byte serialization of a transaction. The transaction may be confirmed or unconfirmed.
 [**transaction_verify**](DefaultApi.md#transaction_verify) | **POST** /api/v2/transaction/verify | 
 [**transactions_get**](DefaultApi.md#transactions_get) | **GET** /api/v1/transactions | Returns transactions that match the filters.
@@ -49,8 +54,8 @@ Method | HTTP request | Description
 [**wallet_recover**](DefaultApi.md#wallet_recover) | **POST** /api/v2/wallet/recover | Recovers an encrypted wallet by providing the seed. The first address will be generated from seed and compared to the first address of the specified wallet. If they match, the wallet will be regenerated with an optional password. If the wallet is not encrypted, an error is returned.
 [**wallet_seed**](DefaultApi.md#wallet_seed) | **POST** /api/v1/wallet/seed | This endpoint only works for encrypted wallets. If the wallet is unencrypted, The seed will be not returned.
 [**wallet_seed_verify**](DefaultApi.md#wallet_seed_verify) | **POST** /api/v2/wallet/seed/verify | Verifies a wallet seed.
-[**wallet_spent**](DefaultApi.md#wallet_spent) | **POST** /api/v1/wallet/spend | 
-[**wallet_transaction**](DefaultApi.md#wallet_transaction) | **POST** /api/v1/wallet/transaction | 
+[**wallet_transaction**](DefaultApi.md#wallet_transaction) | **POST** /api/v1/wallet/transaction | Creates a signed transaction
+[**wallet_transaction_sign**](DefaultApi.md#wallet_transaction_sign) | **POST** /api/v2/wallet/transaction/sign | Creates a signed transaction
 [**wallet_transactions**](DefaultApi.md#wallet_transactions) | **GET** /api/v1/wallet/transactions | 
 [**wallet_unload**](DefaultApi.md#wallet_unload) | **POST** /api/v1/wallet/unload | Unloads wallet from the wallet service.
 [**wallet_update**](DefaultApi.md#wallet_update) | **POST** /api/v1/wallet/update | Update the wallet.
@@ -58,11 +63,12 @@ Method | HTTP request | Description
 
 
 # **address_count**
-> object address_count()
+> InlineResponse200 address_count()
 
 Returns the total number of unique address that have coins.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -86,7 +92,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**object**
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -95,18 +101,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **address_uxouts**
-> list[InlineResponse200] address_uxouts(address)
+> list[object] address_uxouts(address)
 
 
 
 Returns the historical, spent outputs associated with an address
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -133,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[InlineResponse200]**](InlineResponse200.md)
+**list[object]**
 
 ### Authorization
 
@@ -142,7 +149,91 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **api_v1_rawtx_get**
+> str api_v1_rawtx_get()
+
+
+
+### Example
+
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi()
+
+try:
+    api_response = api_instance.api_v1_rawtx_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->api_v1_rawtx_get: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**str**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **api_v2_metrics_get**
+> str api_v2_metrics_get()
+
+
+
+### Example
+
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi()
+
+try:
+    api_response = api_instance.api_v2_metrics_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->api_v2_metrics_get: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**str**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -152,6 +243,7 @@ No authorization required
 Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -188,7 +280,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -199,16 +291,15 @@ Returns the balance of one or more addresses, both confirmed and predicted. The 
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -242,18 +333,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **block**
-> object block(hash=hash, seq=seq)
+> list[BlockSchema] block(hash=hash, seq=seq)
 
-
-
-Returns a block by hash or seq. Note: only one of hash or seq is allowed
+Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -263,10 +353,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi()
-hash = 'hash_example' # str |  (optional)
-seq = 56 # int |  (optional)
+hash = 'hash_example' # str | get block by hash (optional)
+seq = 56 # int | get block by sequence number (optional)
 
 try:
+    # Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
     api_response = api_instance.block(hash=hash, seq=seq)
     pprint(api_response)
 except ApiException as e:
@@ -277,12 +368,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hash** | **str**|  | [optional] 
- **seq** | **int**|  | [optional] 
+ **hash** | **str**| get block by hash | [optional] 
+ **seq** | **int**| get block by sequence number | [optional] 
 
 ### Return type
 
-**object**
+[**list[BlockSchema]**](BlockSchema.md)
 
 ### Authorization
 
@@ -291,7 +382,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -301,6 +392,7 @@ No authorization required
 Returns the blockchain metadata.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -333,7 +425,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -343,6 +435,7 @@ No authorization required
 Returns the blockchain sync progress.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -375,18 +468,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **blocks_get**
-> object blocks_get(start=start, end=end, seqs=seqs)
+# **blocks**
+> InlineResponse2001 blocks(start=start, end=end, seq=seq)
 
-blocksHandler returns blocks between a start and end point,
-
-or an explicit list of sequences. If using start and end, the block sequences include both the start and end point. Explicit sequences cannot be combined with start and end. Without verbose.
+Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -396,29 +488,29 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi()
-start = 56 # int |  (optional)
-end = 56 # int |  (optional)
-seqs = [56] # list[int] |  (optional)
+start = 56 # int | start seq (optional)
+end = 56 # int | end seq (optional)
+seq = [56] # list[int] | comma-separated list of block seqs (optional)
 
 try:
-    # blocksHandler returns blocks between a start and end point,
-    api_response = api_instance.blocks_get(start=start, end=end, seqs=seqs)
+    # Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
+    api_response = api_instance.blocks(start=start, end=end, seq=seq)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->blocks_get: %s\n" % e)
+    print("Exception when calling DefaultApi->blocks: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **int**|  | [optional] 
- **end** | **int**|  | [optional] 
- **seqs** | [**list[int]**](int.md)|  | [optional] 
+ **start** | **int**| start seq | [optional] 
+ **end** | **int**| end seq | [optional] 
+ **seq** | [**list[int]**](int.md)| comma-separated list of block seqs | [optional] 
 
 ### Return type
 
-**object**
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -427,78 +519,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **blocks_post**
-> object blocks_post(start=start, end=end, seqs=seqs)
-
-blocksHandler returns blocks between a start and end point,
-
-or an explicit list of sequences. If using start and end, the block sequences include both the start and end point. Explicit sequences cannot be combined with start and end. Without verbose
-
-### Example
-
-* Api Key Authentication (csrfAuth): 
-```python
-from __future__ import print_function
-import time
-import skyapi
-from skyapi.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: csrfAuth
-configuration = skyapi.Configuration()
-configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
-start = 56 # int |  (optional)
-end = 56 # int |  (optional)
-seqs = [56] # list[int] |  (optional)
-
-try:
-    # blocksHandler returns blocks between a start and end point,
-    api_response = api_instance.blocks_post(start=start, end=end, seqs=seqs)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->blocks_post: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **start** | **int**|  | [optional] 
- **end** | **int**|  | [optional] 
- **seqs** | [**list[int]**](int.md)|  | [optional] 
-
-### Return type
-
-**object**
-
-### Authorization
-
-[csrfAuth](../README.md#csrfAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **coin_supply**
-> coin_supply()
+> InlineResponse2002 coin_supply()
 
 
 
 coinSupplyHandler returns coin distribution supply stats
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -510,7 +543,8 @@ from pprint import pprint
 api_instance = skyapi.DefaultApi()
 
 try:
-    api_instance.coin_supply()
+    api_response = api_instance.coin_supply()
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->coin_supply: %s\n" % e)
 ```
@@ -520,7 +554,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -529,16 +563,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **csrf**
-> InlineResponse2001 csrf()
+> InlineResponse2003 csrf()
 
 Creates a new CSRF token. Previous CSRF tokens are invalidated by this call.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -562,7 +597,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -571,7 +606,151 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **data_delete**
+> data_delete(type=type, key=key)
+
+
+
+### Example
+
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi()
+type = 'type_example' # str | storage type. (optional)
+key = 'key_example' # str | key of the specific value to get. (optional)
+
+try:
+    api_instance.data_delete(type=type, key=key)
+except ApiException as e:
+    print("Exception when calling DefaultApi->data_delete: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | **str**| storage type. | [optional] 
+ **key** | **str**| key of the specific value to get. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **data_get**
+> object data_get(type=type, key=key)
+
+
+
+### Example
+
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi()
+type = 'type_example' # str | storage type. (optional)
+key = 'key_example' # str | key of the specific value to get. (optional)
+
+try:
+    api_response = api_instance.data_get(type=type, key=key)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->data_get: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | **str**| storage type. | [optional] 
+ **key** | **str**| key of the specific value to get. | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **data_post**
+> data_post(type=type, key=key, val=val)
+
+
+
+### Example
+
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi()
+type = 'type_example' # str | storage type. (optional)
+key = 'key_example' # str | key of the specific value to get. (optional)
+val = 'val_example' # str | additional value. (optional)
+
+try:
+    api_instance.data_post(type=type, key=key, val=val)
+except ApiException as e:
+    print("Exception when calling DefaultApi->data_post: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | **str**| storage type. | [optional] 
+ **key** | **str**| key of the specific value to get. | [optional] 
+ **val** | **str**| additional value. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -581,6 +760,7 @@ No authorization required
 defaultConnectionsHandler returns the list of default hardcoded bootstrap addresses.\\n They are not necessarily connected to.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -613,54 +793,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **explorer_address**
-> list[InlineResponse2002] explorer_address(address=address)
-
-
-
-Returns all transactions (confirmed and unconfirmed) for an address
-
-### Example
-```python
-from __future__ import print_function
-import time
-import skyapi
-from skyapi.rest import ApiException
-from pprint import pprint
-
-# create an instance of the API class
-api_instance = skyapi.DefaultApi()
-address = 'address_example' # str | tags to filter by (optional)
-
-try:
-    api_response = api_instance.explorer_address(address=address)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->explorer_address: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **address** | **str**| tags to filter by | [optional] 
-
-### Return type
-
-[**list[InlineResponse2002]**](InlineResponse2002.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -670,6 +803,7 @@ No authorization required
 Returns node health data.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -702,7 +836,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -714,6 +848,7 @@ No authorization required
 Returns the most recent N blocks on the blockchain
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -723,7 +858,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi()
-num = 56 # int | 
+num = 56 # int | Num of blockss
 
 try:
     api_response = api_instance.last_blocks(num)
@@ -736,7 +871,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **num** | **int**|  | 
+ **num** | **int**| Num of blockss | 
 
 ### Return type
 
@@ -749,16 +884,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connection**
-> InlineResponse2003 network_connection(addr)
+> NetworkConnectionSchema network_connection(addr)
 
 This endpoint returns a specific connection.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -786,7 +922,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**NetworkConnectionSchema**](NetworkConnectionSchema.md)
 
 ### Authorization
 
@@ -795,27 +931,26 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **network_connections**
-> list[InlineResponse2003] network_connections(states=states, direction=direction)
+> InlineResponse2004 network_connections(states=states, direction=direction)
 
 This endpoint returns all outgoings connections.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -842,7 +977,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[InlineResponse2003]**](InlineResponse2003.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -851,7 +986,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -864,16 +999,15 @@ This endpoint disconnects a connection by ID or address
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -905,7 +1039,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -917,6 +1051,7 @@ void (empty response body)
 This endpoint returns all connections found through peer exchange
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -948,7 +1083,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -959,7 +1094,6 @@ trustConnectionsHandler returns all trusted connections.\\n They are not necessa
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
 ```python
 from __future__ import print_function
 import time
@@ -967,14 +1101,8 @@ import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
 
-# Configure API key authorization: csrfAuth
-configuration = skyapi.Configuration()
-configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
-
 # create an instance of the API class
-api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
+api_instance = skyapi.DefaultApi()
 
 try:
     # trustConnectionsHandler returns all trusted connections.\\n They are not necessarily connected to. In the default configuration, these will be a subset of the default hardcoded bootstrap addresses.
@@ -993,12 +1121,12 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[csrfAuth](../README.md#csrfAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1008,6 +1136,7 @@ This endpoint does not need any parameter.
 If neither addrs nor hashes are specificed, return all unspent outputs. If only one filter is specified, then return outputs match the filter. Both filters cannot be specified.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1046,7 +1175,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1057,16 +1186,15 @@ If neither addrs nor hashes are specificed, return all unspent outputs. If only 
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1102,18 +1230,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pending_txs**
-> list[InlineResponse2004] pending_txs()
+> list[InlineResponse20010] pending_txs()
 
 
-
-Returns pending (unconfirmed) transactions without verbose
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1136,7 +1263,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[InlineResponse2004]**](InlineResponse2004.md)
+[**list[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -1145,12 +1272,12 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **resend_unconfirmed_txns**
-> resend_unconfirmed_txns()
+> object resend_unconfirmed_txns()
 
 
 
@@ -1158,16 +1285,15 @@ Broadcasts all unconfirmed transactions from the unconfirmed transaction pool
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1176,7 +1302,8 @@ configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
 
 try:
-    api_instance.resend_unconfirmed_txns()
+    api_response = api_instance.resend_unconfirmed_txns()
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->resend_unconfirmed_txns: %s\n" % e)
 ```
@@ -1186,7 +1313,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Authorization
 
@@ -1195,7 +1322,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application-json, application/json, application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1205,6 +1332,7 @@ void (empty response body)
 Returns the top skycoin holders.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1243,18 +1371,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction**
-> object transaction(txid, encoded=encoded)
+> Transaction transaction(txid)
 
 
 
 Returns a transaction identified by its txid hash with just id
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1264,11 +1393,10 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi()
-txid = 'txid_example' # str | transaction hash
-encoded = True # bool | return as a raw encoded transaction. (optional)
+txid = 'txid_example' # str | transaction Id
 
 try:
-    api_response = api_instance.transaction(txid, encoded=encoded)
+    api_response = api_instance.transaction(txid)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->transaction: %s\n" % e)
@@ -1278,12 +1406,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **txid** | **str**| transaction hash | 
- **encoded** | **bool**| return as a raw encoded transaction. | [optional] 
+ **txid** | **str**| transaction Id | 
 
 ### Return type
 
-**object**
+[**Transaction**](Transaction.md)
 
 ### Authorization
 
@@ -1292,27 +1419,26 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction_inject**
-> object transaction_inject(rawtx)
+> str transaction_inject(rawtx)
 
 Broadcast a hex-encoded, serialized transaction to the network.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1337,7 +1463,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+**str**
 
 ### Authorization
 
@@ -1346,7 +1472,111 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain, application/json, application/xml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **transaction_post**
+> InlineResponse2008 transaction_post(transaction_v2_params_address=transaction_v2_params_address)
+
+
+
+### Example
+
+* Api Key Authentication (csrfAuth):
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
+configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
+transaction_v2_params_address = skyapi.TransactionV2ParamsAddress() # TransactionV2ParamsAddress |  (optional)
+
+try:
+    api_response = api_instance.transaction_post(transaction_v2_params_address=transaction_v2_params_address)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->transaction_post: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transaction_v2_params_address** | [**TransactionV2ParamsAddress**](TransactionV2ParamsAddress.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse2008**](InlineResponse2008.md)
+
+### Authorization
+
+[csrfAuth](../README.md#csrfAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **transaction_post_unspent**
+> InlineResponse2008 transaction_post_unspent(transaction_v2_params_unspent)
+
+
+
+### Example
+
+* Api Key Authentication (csrfAuth):
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
+configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
+transaction_v2_params_unspent = skyapi.TransactionV2ParamsUnspent() # TransactionV2ParamsUnspent | Unspent parameters
+
+try:
+    api_response = api_instance.transaction_post_unspent(transaction_v2_params_unspent)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->transaction_post_unspent: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transaction_v2_params_unspent** | [**TransactionV2ParamsUnspent**](TransactionV2ParamsUnspent.md)| Unspent parameters | 
+
+### Return type
+
+[**InlineResponse2008**](InlineResponse2008.md)
+
+### Authorization
+
+[csrfAuth](../README.md#csrfAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1356,6 +1586,7 @@ Name | Type | Description  | Notes
 Returns the hex-encoded byte serialization of a transaction. The transaction may be confirmed or unconfirmed.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1392,12 +1623,12 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **transaction_verify**
-> object transaction_verify()
+> object transaction_verify(transaction_verify_request)
 
 
 
@@ -1405,32 +1636,35 @@ Decode and verify an encoded transaction
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
+transaction_verify_request = skyapi.TransactionVerifyRequest() # TransactionVerifyRequest | 
 
 try:
-    api_response = api_instance.transaction_verify()
+    api_response = api_instance.transaction_verify(transaction_verify_request)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->transaction_verify: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transaction_verify_request** | [**TransactionVerifyRequest**](TransactionVerifyRequest.md)|  | 
 
 ### Return type
 
@@ -1442,8 +1676,8 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1453,6 +1687,7 @@ This endpoint does not need any parameter.
 Returns transactions that match the filters.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1491,7 +1726,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1502,16 +1737,15 @@ Returns transactions that match the filters.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1547,7 +1781,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1557,6 +1791,7 @@ Name | Type | Description  | Notes
 Returns an unspent output by ID.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1593,34 +1828,33 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_address**
-> InlineResponse2007 verify_address(address)
+> object verify_address(address)
 
 Verifies a Skycoin address.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
-address = 'address_example' # str | Address id.
+address = None # object | Address id.
 
 try:
     # Verifies a Skycoin address.
@@ -1634,11 +1868,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **address** | **str**| Address id. | 
+ **address** | [**object**](.md)| Address id. | 
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+**object**
 
 ### Authorization
 
@@ -1647,18 +1881,19 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **version**
-> version()
+> InlineResponse2005 version()
 
 
 
 versionHandler returns the application version info
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1670,7 +1905,8 @@ from pprint import pprint
 api_instance = skyapi.DefaultApi()
 
 try:
-    api_instance.version()
+    api_response = api_instance.version()
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->version: %s\n" % e)
 ```
@@ -1680,7 +1916,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -1689,7 +1925,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1699,6 +1935,7 @@ No authorization required
 Returns a wallet by id.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1735,7 +1972,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1745,6 +1982,7 @@ No authorization required
 Returns the wallet's balance, both confirmed and predicted.  The predicted balance is the confirmed balance minus the pending spends.
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1781,7 +2019,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1794,16 +2032,15 @@ Loads wallet from seed, will scan ahead N address and load addresses till the la
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1844,7 +2081,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1855,16 +2092,15 @@ Decrypts wallet.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1900,7 +2136,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1911,16 +2147,15 @@ Encrypt wallet.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -1956,18 +2191,19 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_folder**
-> InlineResponse2006 wallet_folder(addr)
+> InlineResponse2007 wallet_folder(addr)
 
 
 
 Returns the wallet directory path
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -1994,7 +2230,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2006**](InlineResponse2006.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -2003,7 +2239,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2016,16 +2252,15 @@ Generates new addresses
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -2062,7 +2297,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2074,6 +2309,7 @@ Name | Type | Description  | Notes
 Returns the wallet directory path
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -2109,7 +2345,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2120,16 +2356,15 @@ Recovers an encrypted wallet by providing the seed. The first address will be ge
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -2167,7 +2402,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2178,16 +2413,15 @@ This endpoint only works for encrypted wallets. If the wallet is unencrypted, Th
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -2223,7 +2457,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2234,16 +2468,15 @@ Verifies a wallet seed.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -2277,100 +2510,37 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **wallet_spent**
-> object wallet_spent(id, dst, coins, password)
-
-
-
-Creates and broadcasts a transaction sending money from one of our wallets to destination address.
-
-### Example
-
-* Api Key Authentication (csrfAuth): 
-```python
-from __future__ import print_function
-import time
-import skyapi
-from skyapi.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: csrfAuth
-configuration = skyapi.Configuration()
-configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
-id = 'id_example' # str | Wallet id
-dst = 'dst_example' # str | Recipient address
-coins = 'coins_example' # str | Number of coins to spend, in droplets. 1 coin equals 1e6 droplets.
-password = 'password_example' # str | Wallet password.
-
-try:
-    api_response = api_instance.wallet_spent(id, dst, coins, password)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->wallet_spent: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Wallet id | 
- **dst** | **str**| Recipient address | 
- **coins** | **str**| Number of coins to spend, in droplets. 1 coin equals 1e6 droplets. | 
- **password** | **str**| Wallet password. | 
-
-### Return type
-
-**object**
-
-### Authorization
-
-[csrfAuth](../README.md#csrfAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_transaction**
-> object wallet_transaction(inline_object=inline_object)
-
-
+> object wallet_transaction(wallet_transaction_request)
 
 Creates a signed transaction
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
-inline_object = skyapi.InlineObject() # InlineObject |  (optional)
+wallet_transaction_request = skyapi.WalletTransactionRequest() # WalletTransactionRequest | 
 
 try:
-    api_response = api_instance.wallet_transaction(inline_object=inline_object)
+    # Creates a signed transaction
+    api_response = api_instance.wallet_transaction(wallet_transaction_request)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->wallet_transaction: %s\n" % e)
@@ -2380,7 +2550,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inline_object** | [**InlineObject**](InlineObject.md)|  | [optional] 
+ **wallet_transaction_request** | [**WalletTransactionRequest**](WalletTransactionRequest.md)|  | 
 
 ### Return type
 
@@ -2392,19 +2562,71 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml
- - **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **wallet_transaction_sign**
+> InlineResponse2009 wallet_transaction_sign(wallet_transaction_sign_request)
+
+Creates a signed transaction
+
+### Example
+
+* Api Key Authentication (csrfAuth):
+```python
+from __future__ import print_function
+import time
+import skyapi
+from skyapi.rest import ApiException
+from pprint import pprint
+configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
+configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = skyapi.DefaultApi(skyapi.ApiClient(configuration))
+wallet_transaction_sign_request = skyapi.WalletTransactionSignRequest() # WalletTransactionSignRequest | 
+
+try:
+    # Creates a signed transaction
+    api_response = api_instance.wallet_transaction_sign(wallet_transaction_sign_request)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->wallet_transaction_sign: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wallet_transaction_sign_request** | [**WalletTransactionSignRequest**](WalletTransactionSignRequest.md)|  | 
+
+### Return type
+
+[**InlineResponse2009**](InlineResponse2009.md)
+
+### Authorization
+
+[csrfAuth](../README.md#csrfAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_transactions**
-> object wallet_transactions(id)
+> InlineResponse2006 wallet_transactions(id)
 
 
-
-Returns returns all unconfirmed transactions for all addresses in a given wallet verbose
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -2414,7 +2636,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = skyapi.DefaultApi()
-id = 'id_example' # str | Wallet id.
+id = 'id_example' # str | Wallet Id.
 
 try:
     api_response = api_instance.wallet_transactions(id)
@@ -2427,11 +2649,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Wallet id. | 
+ **id** | **str**| Wallet Id. | 
 
 ### Return type
 
-**object**
+[**InlineResponse2006**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -2440,7 +2662,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2451,16 +2673,15 @@ Unloads wallet from the wallet service.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -2493,27 +2714,26 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallet_update**
-> wallet_update(id, label)
+> str wallet_update(id, label)
 
 Update the wallet.
 
 ### Example
 
-* Api Key Authentication (csrfAuth): 
+* Api Key Authentication (csrfAuth):
 ```python
 from __future__ import print_function
 import time
 import skyapi
 from skyapi.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: csrfAuth
 configuration = skyapi.Configuration()
+# Configure API key authorization: csrfAuth
 configuration.api_key['X-CSRF-TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['X-CSRF-TOKEN'] = 'Bearer'
@@ -2525,7 +2745,8 @@ label = 'label_example' # str | The label the wallet will be updated to.
 
 try:
     # Update the wallet.
-    api_instance.wallet_update(id, label)
+    api_response = api_instance.wallet_update(id, label)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->wallet_update: %s\n" % e)
 ```
@@ -2539,7 +2760,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 
@@ -2548,18 +2769,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain, application/json, application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wallets**
-> list[InlineResponse2005] wallets()
+> list[object] wallets()
 
 
 
 Returns all loaded wallets
 
 ### Example
+
 ```python
 from __future__ import print_function
 import time
@@ -2582,7 +2804,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[InlineResponse2005]**](InlineResponse2005.md)
+**list[object]**
 
 ### Authorization
 
@@ -2591,7 +2813,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

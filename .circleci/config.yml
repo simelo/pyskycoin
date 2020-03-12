@@ -1,0 +1,51 @@
+version: 2
+jobs:
+  manylinux64:
+    docker:
+      - image: docker:18.06.0-ce-git
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
+    steps:
+      - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+
+  manylinux32:
+    docker:
+      - image: docker:18.06.0-ce-git
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
+    steps:
+      - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+  
+  manylinuxarmv7:
+    docker:
+      - image: docker:18.06.0-ce-git
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
+    steps:
+      - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+      - run: docker build  --file $GOPATH/src/github.com/fibercrypto/pyskycoin/docker/images/deploy/Dockerfile-arm  $GOPATH/src/github.com/fibercrypto/pyskycoin -t skydev-test
+
+    docker:
+      - image: docker:18.06.0-ce-git
+    working_directory: $GOPATH/src/github.com/fibercrypto/pyskycoin
+    steps:
+      - run: mkdir -p $GOPATH/src/github.com/ $GOPATH/src/github.com/skycoin
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+      - run: if [[ $CIRCLE_TAG ]]; then   docker build  --build-arg SHA1=$CIRCLE_SHA1 --build-arg GITHUB_OAUTH_TOKEN --build-arg PROJECT_USERNAME=$CIRCLE_PROJECT_USERNAME --build-arg PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME --build-arg QEMU_PLATFORM=raspberrypi3 --build-arg VERSION  --file $GOPATH/src/github.com/skycoin/libskycoin/docker/images/circle/Dockerfile  $GOPATH/src/github.com/skycoin/libskycoin -t skydev-deploy ; fi
+          
+
+workflows:
+  version: 2
+  arm_test:
+    jobs:
+      - manylinux64
+      - manylinux32
+      - manylinuxarmv7

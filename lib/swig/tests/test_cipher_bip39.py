@@ -48,7 +48,7 @@ def test_TestIsMnemonicValid():
     m = b' '.join(ms)
     assert skycoin.SKY_bip39_IsMnemonicValid(m)[1] == False
 
-# Invalid number of words
+    # Invalid number of words
     err, m = skycoin.SKY_bip39_NewDefaultMnemomic()
     assert err == skycoin.SKY_OK
     ms = m.split(b' ')

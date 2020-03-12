@@ -5,13 +5,13 @@ import tests.utils as utils
 class tmpstruct:
     s = "",
     n = 0,
-    e = skycoin.SKY_OK
+    e = 0
 
-    def __init__(self, _s, _n, _e=skycoin.SKY_OK):
+    def __init__(self, _s, _n, _e=0):
         self.e = _e
         self.s = _s
         self.n = _n
-        
+
 
 def test_TestFromString():
     cases = []
@@ -49,7 +49,7 @@ def test_TestFromString():
     for i  in range(len(cases)):
         tc = cases[i]
         err, n = skycoin.SKY_droplet_FromString(tc.s)
-        
+
         if tc.e == skycoin.SKY_OK:
             assert tc.e == err
             assert tc.n == n
@@ -69,7 +69,7 @@ def test_TestToString():
     cases.append(tmpstruct(b"999.000000", 999000000))
     cases.append(tmpstruct(b"123.000456", 123000456))
     cases.append(tmpstruct(b"", 9223372036854775808, skycoin.SKY_ErrTooLarge))
-    
+
     for tcc in cases:
         tc = tcc
         err, s = skycoin.SKY_droplet_ToString(tc.n)

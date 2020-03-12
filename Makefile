@@ -9,14 +9,14 @@ SHELL := /bin/bash
 PYTHON_BIN   ?= python$(PYTHON)
 MKFILE_PATH   = $(abspath $(lastword $(MAKEFILE_LIST)))
 REPO_ROOT     = $(dir $(MKFILE_PATH))
-GOPATH_DIR    = gopath
+GOPATH_DIR    = $(REPO_ROOT)/gopath
 SKYLIBC_DIR  ?= $(GOPATH_DIR)/src/github.com/fibercrypto/libskyfiber
 SKYCOIN_DIR  ?= $(SKYLIBC_DIR)/vendor/github.com/SkycoinProject/skycoin
 SKYBUILD_DIR  = $(SKYLIBC_DIR)/build
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
 LIBC_DIR      = $(SKYLIBC_DIR)/lib/cgo
-LIBSWIG_DIR   = lib/swig/swig
-LIBSWIG_PYSKYFIBER = lib/swig
+LIBSWIG_DIR   = $(REPO_ROOT)/lib/swig/swig
+LIBSWIG_PYSKYFIBER = $(REPO_ROOT)/lib/swig
 BUILD_DIR     = build
 DIST_DIR      = dist
 BIN_DIR       = $(SKYLIBC_DIR)/bin
@@ -28,7 +28,7 @@ SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
 SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
 HEADER_FILES = $(shell find $(INCLUDE_DIR) -type f -name "*.h")
 
-PYTHON_CLIENT_DIR = lib/skyapi
+PYTHON_CLIENT_DIR = $(REPO_ROOT)/lib/skyapi
 
 ifeq ($(shell uname -s),Linux)
 	TEMP_DIR = tmp
@@ -68,9 +68,7 @@ build-swig: ## Generate Python C module from SWIG interfaces
 	}
 	rm -fv $(LIBSWIG_PYSKYFIBER)/skycoin/skycoin.py
 	rm -f $(LIBSWIG_PYSKYFIBER)/pyskycoin_wrap.c
-	rm -f $(LIBSWIG_PYSKYFIBER)/include/swig.h
-	cp $(SKYLIBC_DIR)/include/swig.h $(LIBSWIG_PYSKYFIBER)/include/swig.h
-	swig -python -py3 -w501,505,401,302,509,451 -I$(LIBSWIG_PYSKYFIBER)/include -I$(INCLUDE_DIR) -outdir $(LIBSWIG_PYSKYFIBER)/skycoin/ -o $(LIBSWIG_PYSKYFIBER)/pyskycoin_wrap.c $(LIBSWIG_DIR)/pyskycoin.i
+	swig -python -py3 -w501,505,401,302,509,451 -I$(LIBSWIG_PYSKYFIBER)/include/ -I$(INCLUDE_DIR) -outdir $(LIBSWIG_PYSKYFIBER)/skycoin/ -o $(LIBSWIG_PYSKYFIBER)/pyskycoin_wrap.c $(LIBSWIG_DIR)/pyskycoin.i
 
 develop: ## Install PySkycoin for development
 	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py develop)
@@ -79,7 +77,7 @@ develop: ## Install PySkycoin for development
 build-libc-swig: build-libc build-swig
 
 build: build-libc-swig ## Build PySkycoin Python package
-	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py build)
+	(cd $(LIBSWIG_PYSKYFIBER) && GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" REPO_ROOT=$(REPO_ROOT) $(PYTHON_BIN) setup.py build)
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py build)
 
 test-ci: build-libc build-swig develop ## Run tests on (Travis) CI build
@@ -92,7 +90,7 @@ test-skyapi: build-libc build-swig develop ## Run project test suite by skyapi
 
 test-libsky: build-libc build-swig develop ## Run project test suite by pyskycoin
 	echo "Run project test suite by pyskycoin"
-	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py test)
+	(cd $(LIBSWIG_PYSKYFIBER) && REPO_ROOT=$(REPO_ROOT) $(PYTHON_BIN) setup.py test)
 
 test: test-skyapi test-libsky ## Run project test suite
 

@@ -103,8 +103,8 @@ setup(
     ext_modules=[
         Extension(
             "_skycoin",
-            ["swig/pyskycoin_wrap.c"],
-            include_dirs=["swig/include", path.join(skypath, "include")],
+            ["pyskycoin_wrap.c"],
+            include_dirs=["include", path.join(skypath, "include")],
             extra_link_args=extra_link_args,
             depends=[],
         )

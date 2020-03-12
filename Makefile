@@ -11,12 +11,12 @@ MKFILE_PATH   = $(abspath $(lastword $(MAKEFILE_LIST)))
 REPO_ROOT     = $(dir $(MKFILE_PATH))
 GOPATH_DIR    = gopath
 SKYLIBC_DIR  ?= $(GOPATH_DIR)/src/github.com/fibercrypto/libskyfiber
-SKYCOIN_DIR  ?= $(SKYLIBC_DIR)/vendor/github.com/skycoin/skycoin
+SKYCOIN_DIR  ?= $(SKYLIBC_DIR)/vendor/github.com/SkycoinProject/skycoin
 SKYBUILD_DIR  = $(SKYLIBC_DIR)/build
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
 LIBC_DIR      = $(SKYLIBC_DIR)/lib/cgo
 LIBSWIG_DIR   = lib/swig/swig
-LIBSWIG_PYSKYCOIN = lib/swig
+LIBSWIG_PYSKYFIBER = lib/swig
 BUILD_DIR     = build
 DIST_DIR      = dist
 BIN_DIR       = $(SKYLIBC_DIR)/bin
@@ -40,20 +40,19 @@ endif
 
 configure: ## Configure build environment
 	echo "Configure build environment"
-	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include
-	mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR)
-	mkdir -p $(DIST_DIR)
+	(cd $(LIBSWIG_PYSKYFIBER) && mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include)
+	(cd $(LIBSWIG_PYSKYFIBER) && mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR))
+	(cd $(LIBSWIG_PYSKYFIBER) && mkdir -p $(DIST_DIR))
 
 
 build-libc: configure ## Build libskycoin C client library
 	echo "Build libskycoin C client library"
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) build-libc
-	rm -f swig/include/libskycoin.h
-	rm -f swig/include/swig.h
-	mkdir -p swig/include
-	cp $(SKYLIBC_DIR)/include/swig.h swig/include/
-	grep -v _Complex $(SKYLIBC_DIR)/include/libskycoin.h > swig/include/libskycoin.h
+	mkdir -p $(LIBSWIG_PYSKYFIBER)/include
+	rm -f $(LIBSWIG_PYSKYFIBER)/include/libskycoin.h
+	grep -v _Complex $(SKYLIBC_DIR)/include/libskycoin.h > $(LIBSWIG_PYSKYFIBER)/include/libskycoin.h
+	rm -f $(SKYLIBC_DIR)/include/libskycoin.h
 
 build-swig: ## Generate Python C module from SWIG interfaces
 	echo "Generate Python C module from SWIG interfaces"
@@ -67,24 +66,24 @@ build-swig: ## Generate Python C module from SWIG interfaces
 			sed -i 's/#/%/g' $(LIBSWIG_DIR)/structs.i ;\
 		fi \
 	}
-	rm -fv skycoin/skycoin.py
-	rm -f swig/pyskycoin_wrap.c
-	rm -f swig/include/swig.h
-	swig -python -py3 -w501,505,401,302,509,451 -Iswig/include -I$(INCLUDE_DIR) -outdir ./skycoin/ -o swig/pyskycoin_wrap.c $(LIBSWIG_DIR)/pyskycoin.i
+	rm -fv $(LIBSWIG_PYSKYFIBER)/skycoin/skycoin.py
+	rm -f $(LIBSWIG_PYSKYFIBER)/pyskycoin_wrap.c
+	rm -f $(LIBSWIG_PYSKYFIBER)/include/swig.h
+	cp $(SKYLIBC_DIR)/include/swig.h $(LIBSWIG_PYSKYFIBER)/include/swig.h
+	swig -python -py3 -w501,505,401,302,509,451 -I$(LIBSWIG_PYSKYFIBER)/include -I$(INCLUDE_DIR) -outdir $(LIBSWIG_PYSKYFIBER)/skycoin/ -o $(LIBSWIG_PYSKYFIBER)/pyskycoin_wrap.c $(LIBSWIG_DIR)/pyskycoin.i
 
 develop: ## Install PySkycoin for development
-	$(PYTHON_BIN) setup.py develop
+	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py develop)
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py develop)
 
 build-libc-swig: build-libc build-swig
 
 build: build-libc-swig ## Build PySkycoin Python package
-	$(PYTHON_BIN) setup.py build
+	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py build)
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py build)
 
 test-ci: build-libc build-swig develop ## Run tests on (Travis) CI build
-	tox
-	(cd $(PYTHON_CLIENT_DIR) && tox)
+	(cd $(LIBSWIG_PYSKYFIBER) && tox)
 	(cd $(PYTHON_CLIENT_DIR) && tox)
 
 
@@ -93,16 +92,16 @@ test-skyapi: build-libc build-swig develop ## Run project test suite by skyapi
 
 test-libsky: build-libc build-swig develop ## Run project test suite by pyskycoin
 	echo "Run project test suite by pyskycoin"
-	$(PYTHON_BIN) setup.py test
+	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py test)
 
 test: test-skyapi test-libsky ## Run project test suite
 
 sdist: ## Create source distribution archive
-	$(PYTHON_BIN) setup.py sdist --formats=gztar
+	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py sdist --formats=gztar)
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py sdist --formats=gztar)
 
 bdist_wheel: ## Create architecture-specific binary wheel distribution archive
-	$(PYTHON_BIN) setup.py bdist_wheel
+	(cd $(LIBSWIG_PYSKYFIBER) && $(PYTHON_BIN) setup.py bdist_wheel)
 	(cd $(PYTHON_CLIENT_DIR) && $(PYTHON_BIN) setup.py bdist_wheel)
 
 # FIXME: After libskycoin 32-bits binaries add bdist_manylinux_i686
@@ -137,23 +136,23 @@ check-dist: dist ## Perform self-tests upon distributions archives
 	docker run --rm -t -v $(REPO_ROOT):/io quay.io/pypa/manylinux1_i686 linux32 /io/.travis/check_wheels.sh
 
 format: ## Format code that autopep8
-	autopep8 --in-place --aggressive --aggressive --aggressive --aggressive ./tests/*.py
+	(cd $(LIBSWIG_PYSKYFIBER) && autopep8 --in-place --aggressive --aggressive --aggressive --aggressive ./tests/*.py)
 
 lint: ## Linter to pylint
-	pylint -E tests/*.py
+	(cd $(LIBSWIG_PYSKYFIBER) && pylint -E tests/*.py)
 	yamllint -d relaxed .travis.yml
 	
 clean: #Clean all
 	make -C $(SKYLIBC_DIR) clean-libc
 	$(PYTHON_BIN) -m pip uninstall -y pyskycoin
 	$(PYTHON_BIN) -m pip uninstall -y skyapi
-	rm -rfv tests/__pycache__
-	rm -rfv skycoin/__pycache__
-	rm -rfv skycoin/*.pyc
-	rm -rfv tests/*.pyc
-	rm -rfv tests/utils/*.pyc
-	rm -rfv tests/utils/__pycache__
-	rm -rfv *.so
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/tests/__pycache__
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/skycoin/__pycache__
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/skycoin/*.pyc
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/tests/*.pyc
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/tests/utils/*.pyc
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/tests/utils/__pycache__
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/*.so
 	rm -rfv qemu_python_*
 	rm -rfv lib/skyapi/skyapi/__pycache__
 	rm -rfv lib/skyapi/skyapi/*.pyc
@@ -163,9 +162,9 @@ clean: #Clean all
 	rm -rfv lib/skyapi/skyapi/api/__pycache__
 	rm -rfv lib/skyapi/test/__pycache__
 	rm -rfv lib/skyapi/test/*.pyc
-	rm -rfv swig/pyskycoin_wrap.c
-	rm -rfv skycoin/skycoin.py
-	$(PYTHON_BIN) setup.py clean
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/swig/pyskycoin_wrap.c
+	rm -rfv $(LIBSWIG_PYSKYFIBER)/skycoin/skycoin.py
+	$(PYTHON_BIN) $(LIBSWIG_PYSKYFIBER)/setup.py clean
 	
 
 help: ## List available commands

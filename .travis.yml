@@ -1,17 +1,18 @@
-services:
-  - docker
-
 matrix:
   include:
     - os: linux
       language: python
       python: 3.5
+      services:
+        - docker
       env:
         - TOXENV=py35
         - PYTHON=3.5
     - os: linux
       language: python
       python: 3.6
+      services:
+        - docker
       env:
         - TOXENV=py36
         - PYTHON=3.6
@@ -44,7 +45,7 @@ matrix:
 env:
   global:
     - CGO_ENABLED: 1
-    - PATH_SUBMODULE: "gopath/src/github.com/fibercrypto/libskycoin"
+    - PATH_SUBMODULE: "gopath/src/github.com/fibercrypto/libskyfiber"
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
@@ -72,7 +73,7 @@ script:
   - make format
   # Linter code to pylint
   - make lint
-  # Test PySkycoin
+  # Test pyskyfiber
   - make test-ci
 after_failure:
   - cat ./.tox/${TOXENV}/log/${TOXENV}-*.log
@@ -95,7 +96,7 @@ deploy:
     on:
       all_branches: true
       tags: true
-      repo: fibercrypto/pyskycoin
+      repo: fibercrypto/pyskyfiber
   - provider: pypi
     distributions: sdist
     skip_cleanup: true
@@ -107,7 +108,7 @@ deploy:
     on:
       all_branches: true
       tags: true
-      repo: fibercrypto/pyskycoin
+      repo: fibercrypto/pyskyfiber
   - provider: pypi
     distributions: bdist_wheel
     skip_cleanup: true
@@ -119,13 +120,13 @@ deploy:
     on:
       all_branches: true
       tags: true
-      repo: fibercrypto/pyskycoin
+      repo: fibercrypto/pyskyfiber
       condition: $TRAVIS_OS_NAME = "osx"
   - provider: script
     script: bash .travis/skyapi_deploy.sh
     on:
       all_branches: true
       tags: true
-      repo: fibercrypto/pyskycoin
+      repo: fibercrypto/pyskyfiber
       condition: $TRAVIS_BRANCH =~ "^release-.*$"
 # TODO: Upload manylinux wheels to PyPI

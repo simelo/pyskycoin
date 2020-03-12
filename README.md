@@ -1,6 +1,6 @@
-# PySkycoin
+# PySkyfiber
 
-[![Build Status](https://travis-ci.com/fibercrypto/pyskycoin.svg?branch=develop)](https://travis-ci.com/fibercrypto/pyskycoin)
+[![Build Status](https://travis-ci.com/fibercrypto/pyskyfiber.svg?branch=develop)](https://travis-ci.com/fibercrypto/pyskyfiber)
 
 Python extension for Skycoin API.
 A Python extension generated with SWIG to access Skycoin API from Python.
@@ -33,7 +33,7 @@ A Python extension generated with SWIG to access Skycoin API from Python.
 
 ## Installation
 
-Download the repository from http://github.com/fibercrypto/pyskycoin.git. 
+Download the repository from http://github.com/fibercrypto/pyskyfiber.git. 
 Execute (`python setup.py install`) to install the library. Although executing (python setup.py develop) is a better choice for making changes to the library. However, when using tox these commands are not required at all because calling tox will make any necessary installation and execute the tests.
 
 ## Usage
@@ -87,8 +87,8 @@ Will be called like this:
 
 ```python
 encrypt_settings = skycoin.encrypt__ScryptChacha20poly1305()
-data = "Data to encrypt" #It will be passed as a parameter of type []byte
-pwd = "password"         #As []byte too
+data = b"Data to encrypt" #It will be passed as a parameter of type []byte
+pwd = b"password"         #As []byte too
 err, encrypted = skycoin.SKY_encrypt_ScryptChacha20poly1305_Encrypt(encrypt_settings, data, pwd)
 if err == skycoin.SKY_OK:
 	print encrypted #Encrypted is string
@@ -202,18 +202,18 @@ details.
 The project has two branches: `master` and `develop`.
 
 - `develop` is the default branch and will always have the latest code.
-  The submodule at `gopath/src/github.com/fibercrypto/libskycoin` has to be
-  in sync with `skycoin/skycoin` `develop` branch.
+  The submodule at `gopath/src/github.com/fibercrypto/libskyfiber` has to be
+  in sync with `SkycoinProject/skycoin` `develop` branch.
 - `master` will always be equal to the current stable release on the website, and should correspond with the latest release tag.
-  The submodule at `gopath/src/github.com/fibercrypto/libskycoin` has to be
-  in sync with `skycoin/skycoin` `master` branch.
+  The submodule at `gopath/src/github.com/fibercrypto/libskyfiber` has to be
+  in sync with `SkycoinProject/skycoin` `master` branch.
 
 Separate stable development branches will be created to work on releases for supporting the
 most recent stable version of Skycoin. The name of these branches should be the Skycoin
 major and minor version numbers followed by `dev` suffix e.g. `0.25dev`.
 These branches may be forked out of either `master` or `develop` branches, and 
-the submodule at `gopath/src/github.com/fibercrypto/libskycoin` has to be
-in sync with the corresponding tag of `fibercrypto/libskycoin` official repository.
+the submodule at `gopath/src/github.com/fibercrypto/libskyfiber` has to be
+in sync with the corresponding tag of `fibercrypto/libskyfiber` official repository.
 
 Stable development branches are created most of the time for the following reasons:
 
@@ -234,14 +234,14 @@ $ make test
 
 0. If the `master` branch has commits that are not in `develop` (e.g. due to a hotfix applied to `master`), merge `master` into `develop` (and fix any build or test failures)
 0. Switch to a new release branch named `release-X.Y.Z` for preparing the release.
-0. Ensure that the submodule at `gopath/src/github.com/fibercrypto/libskycoin` is in sync with respect to the corresponding tag in https://github.com/fibercrypto/libskycoin repository.
+0. Ensure that the submodule at `gopath/src/github.com/fibercrypto/libskyfiber` is in sync with respect to the corresponding tag in https://github.com/fibercrypto/libskyfiber repository.
 0. Update `__version__` in `skycoin/__init__.py`
 0. Run `make build` to make sure that the code base is up to date
 0. Update `CHANGELOG.md`: move the "unreleased" changes to the version and add the date.
 0. Follow the steps in [pre-release testing](#pre-release-testing)
 0. Make a PR merging the release branch into `master`
 0. Review the PR and merge it
-0. Update files in https://github.com/skycoin/repo-info/tree/master/repos/skycoin/remote for `simelotech/skycoindev-dotnet` Docker image, adding a new file for the new version and adjusting any configuration text that may have changed
+0. Update files in https://github.com/SkycoinProject/repo-info/tree/master/repos/skycoin/remote for `simelotech/skycoindev-dotnet` Docker image, adding a new file for the new version and adjusting any configuration text that may have changed
 0. Tag the `master` branch with the version number. Version tags start with `v`, e.g. `v0.20.0`. Sign the tag. If you have your GPG key in github, creating a release on the Github website will automatically tag the release. It can be tagged from the command line with `git tag -as v0.20.0 $COMMIT_ID`, but Github will not recognize it as a "release".
 0. Release builds are created and uploaded by travis. To do it manually, checkout the master branch and follow the [create release builds instructions](#creating-release-builds).
 0. Checkout `develop` branch and bump `__version__` to next [`dev` version number](https://www.python.org/dev/peps/pep-0440/#developmental-releases).

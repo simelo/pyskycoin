@@ -59,7 +59,7 @@ class skycoin_build_ext(build_ext, object):
             super(skycoin_build_ext, self).build_extension(ext)
 
 
-skypath = path.join(*("gopath/src/github.com/fibercrypto/libskycoin".split("/")))
+skypath = path.join(*("gopath/src/github.com/fibercrypto/libskyfiber".split("/")))
 lib_path = path.join(skypath, "build", "libskycoin")
 library_file = path.join(lib_path, "libskycoin.a")
 extra_link_args = []

@@ -23,6 +23,8 @@ script_dirname = path.abspath(path.dirname(__file__))
 with open(path.join(script_dirname, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
+repo_root = os.getenv("REPO_ROOT")
+
 
 class skycoin_build_ext(build_ext, object):
     def build_extension(self, ext):
@@ -33,9 +35,9 @@ class skycoin_build_ext(build_ext, object):
         else:
             files = os.listdir(script_dirname)
             sys.stderr.write("files before: " + str(files))
-            print("files before: " + str(files)) 
+            print("files before: " + str(files))
 
-            make_path = os.path.realpath(script_dirname)
+            make_path = os.path.realpath(repo_root)
 
             make_process = subprocess.Popen('make build-libc-swig',
                                             cwd=make_path,
@@ -44,22 +46,23 @@ class skycoin_build_ext(build_ext, object):
                                             shell=True)
             sys.stderr.write("files after: " + str(files))
             stdout, stderr = make_process.communicate()
-            
+
             print("stdout:")
             sys.stderr.write(str(stdout))
             if len(stderr) > 0:
-            	print("stderr:")
-            	sys.stderr.write(str(stderr))
+                print("stderr:")
+                sys.stderr.write(str(stderr))
             files = os.listdir(script_dirname)
             sys.stderr.write("files after: " + str(files))
-            print("files after: " + str(files)) 
-            
+            print("files after: " + str(files))
+
             # After making the library build the c library's
             # python interface with the parent build_extension method
             super(skycoin_build_ext, self).build_extension(ext)
 
 
-skypath = path.join(*("gopath/src/github.com/fibercrypto/libskyfiber".split("/")))
+skypath = path.join(
+    *("gopath/src/github.com/fibercrypto/libskyfiber".split("/")))
 lib_path = path.join(skypath, "build", "libskycoin")
 library_file = path.join(lib_path, "libskycoin.a")
 extra_link_args = []
@@ -96,7 +99,8 @@ setup(
     py_modules=["skycoin"],
     packages=find_packages(exclude=["contrib", "docs", "tests"]),  # Required
     install_requires=[],
-    extras_require={"dev": ["check-manifest"], "test": ["coverage"]},  # Optional
+    extras_require={"dev": ["check-manifest"],
+                    "test": ["coverage"]},  # Optional
     package_data={},
     entry_points={"console_scripts": []},
     cmdclass={"build_ext": skycoin_build_ext},
